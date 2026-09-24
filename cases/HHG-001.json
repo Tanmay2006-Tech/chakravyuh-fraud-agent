@@ -1,0 +1,105 @@
+{
+  "case_id": "HHG-001",
+  "case": {
+    "status": "closed_legitimate",
+    "verdict": "legitimate",
+    "fraud_probability": 0.04,
+    "pattern": "none",
+    "pattern_description": "",
+    "affected_txn_ids": [],
+    "first_suspicious_txn_id": "",
+    "connected_card_ids": [],
+    "connected_device_profiles": [],
+    "exposure_usd": 0.0,
+    "evidence": [
+      {
+        "claim": "Established cardholder: 10 earlier transactions under this fingerprint since 2016-09-13, none ever reported",
+        "source": "graph",
+        "ref": "query:fingerprint_history(fp=F:C12382-K1|444|73|na)",
+        "entity_ids": [
+          "3441958",
+          "3471020",
+          "3490282"
+        ]
+      },
+      {
+        "claim": "Same cardholder has made 2 earlier purchases at about $77 under product W (e.g. 11-19, 11-26)",
+        "source": "graph",
+        "ref": "query:fingerprint_history(fp=F:C12382-K1|444|73|na)",
+        "entity_ids": [
+          "3471020",
+          "3490282"
+        ]
+      },
+      {
+        "claim": "Billing region 444 is routine for this card: purchases there on 9 different days before \u2014 bank memory: less reassuring than it looks: 60% of 76 past model alerts with this signal were fraud (vs 29% without), so here it counts for little",
+        "source": "graph",
+        "ref": "query:card_profile(card=C12382-K1) + calibration:closed_cases",
+        "entity_ids": [
+          "C12382-K1"
+        ]
+      },
+      {
+        "claim": "Bank model scored the transaction 0.61 (treated as a weak input: above 0.7 most alerts are legitimate)",
+        "source": "external",
+        "ref": "case_pack:HHG-001",
+        "entity_ids": [
+          "3514030"
+        ]
+      },
+      {
+        "claim": "Retrieved guidance applied: Out-of-region use: card-present purchases in a billing region the cardholder has no history in while normal activity continues at home. Several days of purchases in one new region is a trip, not a clone.",
+        "source": "document",
+        "ref": "out_of_region_use",
+        "entity_ids": []
+      }
+    ],
+    "similar_prior_cases": [
+      "CC-1066",
+      "CC-2964"
+    ],
+    "summary": "A transaction of $77.07 on card C12382-K1 was flagged by a real-time model with a score of 0.61. The investigation found multiple earlier purchases by the same cardholder, including two similar $77 purchases and a history of billing region 444, indicating genuine use. The model score was the only adverse signal and the probability of fraud was low (0.04), so the transaction was allowed. The case was closed as legitimate and no further action was taken.",
+    "written_to_graph": false,
+    "graph_case_id": ""
+  },
+  "evidence_requests": [],
+  "next_best_actions": {
+    "initial": [
+      {
+        "action": "ALLOW_TRANSACTION",
+        "route": "auto",
+        "reason": "Section 6: probability 0.04 \u2264 0.15 on 2 independent pieces of legitimate-behaviour evidence"
+      },
+      {
+        "action": "CLOSE_NO_FRAUD",
+        "route": "auto",
+        "reason": "Section 6 / R1: the model score is the only adverse signal; blocking would breach R1"
+      }
+    ],
+    "final": [
+      {
+        "action": "ALLOW_TRANSACTION",
+        "route": "auto",
+        "reason": "Section 6: probability 0.04 \u2264 0.15 on 2 independent pieces of legitimate-behaviour evidence"
+      },
+      {
+        "action": "CLOSE_NO_FRAUD",
+        "route": "auto",
+        "reason": "Section 6 / R1: the model score is the only adverse signal; blocking would breach R1"
+      }
+    ],
+    "what_changed": "nothing"
+  },
+  "sar": {
+    "file": false,
+    "reason": "No report: activity is not confirmed or strongly suspected fraud (section 3a).",
+    "narrative": "",
+    "subjects": [],
+    "total_amount_usd": 0,
+    "activity_dates": []
+  },
+  "stop_reason": "Probability at or below 0.15 on two or more independent pieces of legitimate-behaviour evidence (section 6); verification would not change the decision.",
+  "tool_calls": 10,
+  "tokens": 1471,
+  "latency_s": 29.4
+}

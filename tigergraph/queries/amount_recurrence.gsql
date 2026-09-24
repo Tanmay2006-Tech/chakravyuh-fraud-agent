@@ -1,0 +1,9 @@
+CREATE OR REPLACE QUERY amount_recurrence(VERTEX<Card> card, DOUBLE amount, DOUBLE tol, STRING product, DATETIME before_ts) FOR GRAPH FraudGraph {
+  /* Prior charges on the card at (almost) the same amount and product code: recurring-charge check for disputes (R7). */
+  SetAccum<STRING> @fingerprint;
+  S = {card};
+  T = SELECT t FROM S:c -(MADE>)- Txn:t
+      WHERE t.ts < before_ts AND t.product == product AND abs(t.amount - amount) <= tol;
+  Y = SELECT t FROM T:t -(USED_FINGERPRINT>)- Fingerprint:f ACCUM t.@fingerprint += f.id;
+  PRINT T;
+}

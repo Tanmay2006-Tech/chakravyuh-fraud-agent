@@ -1,0 +1,12 @@
+.env
+data/HHGOA_IEEE/
+data/load/
+data/local/*.parquet
+data/local/*.npy
+data/local/agent_cases.jsonl
+data/vectors/
+__pycache__/
+*.pyc
+.venv/
+HANDOFF.md
+.handoff/

@@ -1,0 +1,133 @@
+[
+  {
+    "kind": "threshold_structuring",
+    "card_id": "C00466-K1",
+    "txn": "3476664",
+    "why": "4 online purchases of $400-$500 within 40 minutes ($1,860.43)"
+  },
+  {
+    "kind": "threshold_structuring",
+    "card_id": "C01890-K1",
+    "txn": "3481444",
+    "why": "4 online purchases of $400-$500 within 40 minutes ($1,921.59)"
+  },
+  {
+    "kind": "threshold_structuring",
+    "card_id": "C02265-K1",
+    "txn": "3507670",
+    "why": "4 online purchases of $400-$500 within 40 minutes ($1,904.86)"
+  },
+  {
+    "kind": "threshold_structuring",
+    "card_id": "C03633-K1",
+    "txn": "3487348",
+    "why": "4 online purchases of $400-$500 within 40 minutes ($1,935.29)"
+  },
+  {
+    "kind": "threshold_structuring",
+    "card_id": "C05423-K1",
+    "txn": "3509576",
+    "why": "4 online purchases of $400-$500 within 40 minutes ($1,884.76)"
+  },
+  {
+    "kind": "threshold_structuring",
+    "card_id": "C05766-K1",
+    "txn": "3509706",
+    "why": "4 online purchases of $400-$500 within 40 minutes ($1,908.26)"
+  },
+  {
+    "kind": "threshold_structuring",
+    "card_id": "C05851-K1",
+    "txn": "3475414",
+    "why": "4 online purchases of $400-$500 within 40 minutes ($1,911.84)"
+  },
+  {
+    "kind": "threshold_structuring",
+    "card_id": "C06881-K1",
+    "txn": "3511062",
+    "why": "4 online purchases of $400-$500 within 40 minutes ($1,880.16)"
+  },
+  {
+    "kind": "threshold_structuring",
+    "card_id": "C07297-K1",
+    "txn": "3476682",
+    "why": "4 online purchases of $400-$500 within 40 minutes ($1,906.07)"
+  },
+  {
+    "kind": "threshold_structuring",
+    "card_id": "C10751-K1",
+    "txn": "3483895",
+    "why": "4 online purchases of $400-$500 within 40 minutes ($1,906.11)"
+  },
+  {
+    "kind": "threshold_structuring",
+    "card_id": "C10990-K1",
+    "txn": "3476008",
+    "why": "4 online purchases of $400-$500 within 40 minutes ($1,926.93)"
+  },
+  {
+    "kind": "threshold_structuring",
+    "card_id": "C12641-K2",
+    "txn": "3498092",
+    "why": "4 online purchases of $400-$500 within 40 minutes ($1,922.43)"
+  },
+  {
+    "kind": "shared_device",
+    "device_id": "D2c2006f554",
+    "cards": [
+      "C01289-K1",
+      "C01996-K2",
+      "C02910-K1",
+      "C02975-K1",
+      "C03676-K2",
+      "C04108-K2",
+      "C04274-K1",
+      "C05448-K2",
+      "C06031-K2",
+      "C06650-K2",
+      "C06710-K1",
+      "C07472-K1",
+      "C08168-K1",
+      "C08972-K2",
+      "C09049-K1",
+      "C09195-K1",
+      "C09906-K1",
+      "C09975-K1",
+      "C10020-K1",
+      "C10193-K2",
+      "C10326-K1",
+      "C11082-K1",
+      "C11670-K2",
+      "C11702-K1",
+      "C12645-K1",
+      "C12796-K1",
+      "C13291-K1",
+      "C13487-K1"
+    ],
+    "why": "rare device profile (SM-G935F Build/NRD90M | Android 7.0 | chrome 62.0 for android | 1920x1080) used on 28 cards in the window, 60 flagged New"
+  },
+  {
+    "kind": "shared_device",
+    "device_id": "D0930d72c24",
+    "cards": [
+      "C00294-K2",
+      "C02181-K2",
+      "C04386-K1",
+      "C06988-K1"
+    ],
+    "why": "rare device profile (BLADE V8Q Build/N2G47H | ? | chrome generic for android | ?) used on 4 cards in the window, 4 flagged New"
+  },
+  {
+    "kind": "shared_device",
+    "device_id": "Dce8f1eb2f9",
+    "cards": [
+      "C00483-K1",
+      "C01909-K2",
+      "C04108-K2",
+      "C04984-K2",
+      "C06224-K2",
+      "C08256-K2"
+    ],
+    "why": "rare device profile (iOS Device | iOS 11.2.5 | mobile safari 11.0 | 2208x1242) used on 6 cards in the window, 11 flagged New"
+  }
+]

@@ -1,0 +1,7 @@
+CREATE OR REPLACE QUERY knowledge_search(LIST<FLOAT> query_vec, INT k) FOR GRAPH FraudGraph SYNTAX v3 {
+  /* GraphRAG text side: top-k policy / pattern / regulatory passages by embedding similarity (TigerVector). */
+  MapAccum<VERTEX, FLOAT> @@distances;
+  v = vectorSearch({KnowledgeDoc.embedding}, query_vec, k, { distance_map: @@distances });
+  PRINT v;
+  PRINT @@distances AS distances;
+}

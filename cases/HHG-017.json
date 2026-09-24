@@ -1,0 +1,128 @@
+{
+  "case_id": "HHG-017",
+  "case": {
+    "status": "closed_legitimate",
+    "verdict": "legitimate",
+    "fraud_probability": 0.05,
+    "pattern": "none",
+    "pattern_description": "",
+    "affected_txn_ids": [],
+    "first_suspicious_txn_id": "",
+    "connected_card_ids": [],
+    "connected_device_profiles": [],
+    "exposure_usd": 0.0,
+    "evidence": [
+      {
+        "claim": "Same cardholder has made 2 earlier purchases at about $100 under product R (e.g. 11-11, 11-11)",
+        "source": "graph",
+        "ref": "query:fingerprint_history(fp=F:C04570-K1|204|132|anonymous.com)",
+        "entity_ids": [
+          "3450436",
+          "3450503"
+        ]
+      },
+      {
+        "claim": "The card has paid the same $100.09 (\u00b1$0.50, product R, same email domain) on 3 earlier days: 2016-07-18, 2016-08-02, 2016-10-27",
+        "source": "graph",
+        "ref": "query:amount_recurrence(card=C04570-K1, amount=100.09)",
+        "entity_ids": [
+          "3063185",
+          "3135192",
+          "3403833"
+        ]
+      },
+      {
+        "claim": "Purchaser email domain is anonymous.com \u2014 bank memory: less alarming than it looks: 11% of 131 past model alerts with this signal were fraud (vs 35% without), so here it counts towards a genuine customer",
+        "source": "graph",
+        "ref": "query:txn_context(t=3450629) + calibration:closed_cases",
+        "entity_ids": [
+          "3450629"
+        ]
+      },
+      {
+        "claim": "Device profile is already known on this card (identity record: Found) \u2014 bank memory: less reassuring than it looks: 56% of 206 past model alerts with this signal were fraud (vs 25% without), so here it counts towards fraud",
+        "source": "graph",
+        "ref": "query:card_profile(card=C04570-K1) + calibration:closed_cases",
+        "entity_ids": []
+      },
+      {
+        "claim": "Connection behind a proxy (IP_PROXY:HIDDEN) \u2014 bank memory: less alarming than it looks: 9% of 34 past model alerts with this signal were fraud (vs 32% without), so here it counts towards a genuine customer",
+        "source": "graph",
+        "ref": "query:txn_context(t=3450629) + calibration:closed_cases",
+        "entity_ids": [
+          "3450629"
+        ]
+      },
+      {
+        "claim": "Burst: 3 purchases of about $100 under this fingerprint within two hours",
+        "source": "graph",
+        "ref": "query:fingerprint_history(fp=F:C04570-K1|204|132|anonymous.com)",
+        "entity_ids": [
+          "3450436",
+          "3450503",
+          "3450629"
+        ]
+      },
+      {
+        "claim": "Bank model scored the transaction 0.57 (treated as a weak input: above 0.7 most alerts are legitimate)",
+        "source": "external",
+        "ref": "case_pack:HHG-017",
+        "entity_ids": [
+          "3450629"
+        ]
+      },
+      {
+        "claim": "Retrieved guidance applied: Card-not-present fraud from a new device: as card-not-present fraud, with the identity record marking the device as New for this account, sometimes behind a proxy. Stronger than plain CNP but not proof, since people buy new phones.",
+        "source": "document",
+        "ref": "card_not_present_new_device",
+        "entity_ids": []
+      }
+    ],
+    "similar_prior_cases": [
+      "CC-0502"
+    ],
+    "summary": "The transaction of $100.09 was reviewed after the real-time model flagged it with a score of 0.57. Evidence showed the cardholder had made several similar $100 purchases on the same product and email domain, and the device profile was known, which pointed to a genuine customer. A burst of three purchases within two hours and a device-profile signal that historically correlated with fraud were noted, but the overall probability was low (5%) and the model score was considered a weak adverse input. Because the legitimate-behaviour evidence outweighed the fraud signals, the transaction was allowed and the case was closed as legitimate.",
+    "written_to_graph": true,
+    "graph_case_id": "INV-HHG-017"
+  },
+  "evidence_requests": [],
+  "next_best_actions": {
+    "initial": [
+      {
+        "action": "ALLOW_TRANSACTION",
+        "route": "auto",
+        "reason": "Section 6: probability 0.05 \u2264 0.15 on 4 independent pieces of legitimate-behaviour evidence"
+      },
+      {
+        "action": "CLOSE_NO_FRAUD",
+        "route": "auto",
+        "reason": "Section 6 / R1: the model score is the only adverse signal; blocking would breach R1"
+      }
+    ],
+    "final": [
+      {
+        "action": "ALLOW_TRANSACTION",
+        "route": "auto",
+        "reason": "Section 6: probability 0.05 \u2264 0.15 on 4 independent pieces of legitimate-behaviour evidence"
+      },
+      {
+        "action": "CLOSE_NO_FRAUD",
+        "route": "auto",
+        "reason": "Section 6 / R1: the model score is the only adverse signal; blocking would breach R1"
+      }
+    ],
+    "what_changed": "nothing"
+  },
+  "sar": {
+    "file": false,
+    "reason": "No report: activity is not confirmed or strongly suspected fraud (section 3a).",
+    "narrative": "",
+    "subjects": [],
+    "total_amount_usd": 0,
+    "activity_dates": []
+  },
+  "stop_reason": "Probability at or below 0.15 on two or more independent pieces of legitimate-behaviour evidence (section 6); verification would not change the decision.",
+  "tool_calls": 12,
+  "tokens": 1631,
+  "latency_s": 3.55
+}

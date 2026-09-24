@@ -1,0 +1,66 @@
+{
+  "window": [
+    "2016-07-01",
+    "2016-09-14"
+  ],
+  "n_alerts": 1010,
+  "fraud_rate": 0.316,
+  "weights": {
+    "region-": 1.3,
+    "device-": 1.33,
+    "device+": -2.5,
+    "fingerprint_history+": 3.0,
+    "region+": 1.11,
+    "device_memory-": -1.57,
+    "email+": -1.43,
+    "amount+": -0.79,
+    "proxy+": -1.34
+  },
+  "evidence": {
+    "region-": {
+      "n_with": 76,
+      "fraud_rate_with": 0.605,
+      "fraud_rate_without": 0.292
+    },
+    "device-": {
+      "n_with": 206,
+      "fraud_rate_with": 0.563,
+      "fraud_rate_without": 0.252
+    },
+    "device+": {
+      "n_with": 577,
+      "fraud_rate_with": 0.081,
+      "fraud_rate_without": 0.628
+    },
+    "fingerprint_history+": {
+      "n_with": 62,
+      "fraud_rate_with": 1.0,
+      "fraud_rate_without": 0.271
+    },
+    "region+": {
+      "n_with": 49,
+      "fraud_rate_with": 0.571,
+      "fraud_rate_without": 0.303
+    },
+    "device_memory-": {
+      "n_with": 145,
+      "fraud_rate_with": 0.097,
+      "fraud_rate_without": 0.353
+    },
+    "email+": {
+      "n_with": 131,
+      "fraud_rate_with": 0.107,
+      "fraud_rate_without": 0.347
+    },
+    "amount+": {
+      "n_with": 54,
+      "fraud_rate_with": 0.167,
+      "fraud_rate_without": 0.324
+    },
+    "proxy+": {
+      "n_with": 34,
+      "fraud_rate_with": 0.088,
+      "fraud_rate_without": 0.324
+    }
+  }
+}

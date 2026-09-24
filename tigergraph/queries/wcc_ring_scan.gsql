@@ -1,0 +1,20 @@
+CREATE OR REPLACE QUERY wcc_ring_scan(INT min_devices, INT max_fingerprints) FOR GRAPH FraudGraph {
+  /* Portfolio view of the tg_wcc result: components that link cards-in-use through SEVERAL rare device
+     profiles (min_devices or more) yet stay small enough to be one operation (max_fingerprints or fewer).
+     A single-device ring is already caught by shared_device_scan; multi-device rings are not. */
+  MapAccum<INT, SumAccum<INT>> @@n_fps, @@n_devs;
+  SetAccum<INT> @@keep;
+  MapAccum<INT, SetAccum<STRING>> @@ring_devices;
+  MapAccum<INT, SetAccum<STRING>> @@ring_fingerprints;
+  D = {DeviceProfile.*};
+  D = SELECT d FROM D:d -(USES_DEVICE)- Fingerprint:f;
+  D = SELECT d FROM D:d ACCUM @@n_devs += (d.wcc_id -> 1);
+  F = SELECT f FROM D:d -(USES_DEVICE)- Fingerprint:f;
+  F = SELECT f FROM F:f ACCUM @@n_fps += (f.wcc_id -> 1);
+  FOREACH (cid, n) IN @@n_fps DO
+    IF @@n_devs.get(cid) >= min_devices AND n <= max_fingerprints THEN @@keep += cid; END;
+  END;
+  D = SELECT d FROM D:d WHERE @@keep.contains(d.wcc_id) ACCUM @@ring_devices += (d.wcc_id -> d.id);
+  F = SELECT f FROM F:f WHERE @@keep.contains(f.wcc_id) ACCUM @@ring_fingerprints += (f.wcc_id -> f.id);
+  PRINT @@ring_devices AS ring_devices, @@ring_fingerprints AS ring_fingerprints;
+}

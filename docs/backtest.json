@@ -1,0 +1,28 @@
+{
+  "n": 400,
+  "window": [
+    "2016-09-15",
+    "2016-10-31"
+  ],
+  "accuracy_on_decided": 0.662,
+  "uncertain_share": 0.335,
+  "auc_p0": 0.663,
+  "fraud_recall": 0.315,
+  "legit_recall": 0.565,
+  "pattern_accuracy_on_caught_fraud": 0.667,
+  "confusion": {
+    "fraud": {
+      "fraud": 63,
+      "legitimate": 4
+    },
+    "legitimate": {
+      "fraud": 86,
+      "legitimate": 113
+    },
+    "uncertain": {
+      "fraud": 51,
+      "legitimate": 83
+    }
+  },
+  "seconds": 124.1
+}

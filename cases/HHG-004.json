@@ -1,0 +1,111 @@
+{
+  "case_id": "HHG-004",
+  "case": {
+    "status": "closed_fraud",
+    "verdict": "fraud",
+    "fraud_probability": 0.85,
+    "pattern": "card_not_present_new_device",
+    "pattern_description": "",
+    "affected_txn_ids": [
+      "3583227"
+    ],
+    "first_suspicious_txn_id": "3583227",
+    "connected_card_ids": [],
+    "connected_device_profiles": [
+      "? | ? | firefox 47.0 | ?"
+    ],
+    "exposure_usd": 128.33,
+    "evidence": [
+      {
+        "claim": "$128.33 is far outside this card's history (209 prior transactions, mean $35.31, max $138.89)",
+        "source": "graph",
+        "ref": "query:card_profile(card=C08106-K1)",
+        "entity_ids": [
+          "3583227",
+          "C08106-K1"
+        ]
+      },
+      {
+        "claim": "Device profile marked New for this account (? | ? | firefox 47.0 | ?) and never seen on the card before",
+        "source": "graph",
+        "ref": "query:txn_context(t=3583227)",
+        "entity_ids": []
+      },
+      {
+        "claim": "Fraud episode: 1 transaction(s) on C08106-K1 from 2016-12-29 01:53 to 2016-12-29 01:53, $128.33 in total ($128.33)",
+        "source": "graph",
+        "ref": "query:fingerprint_history / card_window",
+        "entity_ids": [
+          "3583227"
+        ]
+      },
+      {
+        "claim": "Customer report: 'I never made this $128.33 purchase. Please check my card.' Refers to 3583227.",
+        "source": "customer",
+        "ref": "case_pack:HHG-004",
+        "entity_ids": [
+          "3583227"
+        ]
+      },
+      {
+        "claim": "Retrieved guidance applied: R2 Customer denies the transaction. Recommend BLOCK_CARD and CREATE_CASE. Add FILE_REPORT if exposure exceeds $1,000 or the case connects to a shared device profile or another card's fraud.",
+        "source": "document",
+        "ref": "Fraud Policy R2",
+        "entity_ids": []
+      },
+      {
+        "claim": "Retrieved guidance applied: Card-not-present fraud from a new device: as card-not-present fraud, with the identity record marking the device as New for this account, sometimes behind a proxy. Stronger than plain CNP but not proof, since people buy new phones.",
+        "source": "document",
+        "ref": "card_not_present_new_device",
+        "entity_ids": []
+      }
+    ],
+    "similar_prior_cases": [
+      "CC-5186",
+      "CC-4714"
+    ],
+    "summary": "The customer reported a $128.33 online purchase they did not make, referencing transaction 3583227. The investigation found the amount was far outside the card's history and the device profile was new for the account, both pointing to fraud. The case was closed as fraud and the card was blocked. No further action was required.",
+    "written_to_graph": false,
+    "graph_case_id": ""
+  },
+  "evidence_requests": [],
+  "next_best_actions": {
+    "initial": [
+      {
+        "action": "BLOCK_CARD",
+        "route": "L1",
+        "reason": "R2: card compromised; exposure $128.33 \u2264 $2,500"
+      },
+      {
+        "action": "CREATE_CASE",
+        "route": "auto",
+        "reason": "R2 / section 3a: fraud case with evidence written to the graph"
+      }
+    ],
+    "final": [
+      {
+        "action": "BLOCK_CARD",
+        "route": "L1",
+        "reason": "R2: card compromised; exposure $128.33 \u2264 $2,500"
+      },
+      {
+        "action": "CREATE_CASE",
+        "route": "auto",
+        "reason": "R2 / section 3a: fraud case with evidence written to the graph"
+      }
+    ],
+    "what_changed": "nothing"
+  },
+  "sar": {
+    "file": false,
+    "reason": "Case only, no report: exposure $128.33 is under $1,000 and nothing links it to a shared device or another customer's fraud (section 3a).",
+    "narrative": "",
+    "subjects": [],
+    "total_amount_usd": 0,
+    "activity_dates": []
+  },
+  "stop_reason": "Probability at or above 0.85 on two or more independent fraud signals (section 6); further steps would not change the actions.",
+  "tool_calls": 12,
+  "tokens": 1310,
+  "latency_s": 26.52
+}

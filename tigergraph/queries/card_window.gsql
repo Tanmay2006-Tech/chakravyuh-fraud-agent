@@ -1,0 +1,9 @@
+CREATE OR REPLACE QUERY card_window(VERTEX<Card> card, DATETIME from_ts, DATETIME to_ts) FOR GRAPH FraudGraph {
+  /* Every transaction on a card inside a time window, with its device and fingerprint. */
+  SetAccum<STRING> @device, @fingerprint;
+  S = {card};
+  T = SELECT t FROM S:c -(MADE>)- Txn:t WHERE t.ts >= from_ts AND t.ts <= to_ts;
+  X = SELECT t FROM T:t -(FROM_DEVICE>)- DeviceProfile:d ACCUM t.@device += d.id;
+  Y = SELECT t FROM T:t -(USED_FINGERPRINT>)- Fingerprint:f ACCUM t.@fingerprint += f.id;
+  PRINT T;
+}

@@ -1,0 +1,9 @@
+CREATE OR REPLACE QUERY threshold_scan(DATETIME from_ts, DATETIME to_ts, DOUBLE lo, DOUBLE hi) FOR GRAPH FraudGraph {
+  /* Online transactions in an amount band (e.g. $400-$500) across ALL cards: raw material for
+     spotting authorization-threshold structuring runs that repeat across customers. */
+  SetAccum<STRING> @card;
+  T = {Txn.*};
+  B = SELECT t FROM T:t WHERE t.channel == "online" AND t.amount >= lo AND t.amount < hi AND t.ts >= from_ts AND t.ts <= to_ts;
+  C = SELECT c FROM B:t -(MADE_BY>)- Card:c ACCUM t.@card += c.id;
+  PRINT B[B.ts, B.amount, B.@card];
+}

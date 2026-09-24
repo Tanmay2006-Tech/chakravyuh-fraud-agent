@@ -1,0 +1,20 @@
+CREATE OR REPLACE QUERY shared_device_scan(DATETIME from_ts, DATETIME to_ts, INT min_cards, INT max_lifetime_cards) FOR GRAPH FraudGraph {
+  /* Shared-origin detection: RARE device profiles (few cards over their whole life) that nevertheless
+     touch several different cards inside a short window. Common devices (e.g. "Windows | chrome")
+     are excluded by max_lifetime_cards, which is what makes the signal meaningful. */
+  SetAccum<STRING> @card; SetAccum<STRING> @win_cards; SetAccum<STRING> @life_cards;
+  SumAccum<INT> @new_flags, @proxy_flags;
+  T = {Txn.*};
+  W = SELECT t FROM T:t WHERE t.channel == "online" AND t.ts >= from_ts AND t.ts <= to_ts;
+  W = SELECT t FROM W:t -(MADE_BY>)- Card:c ACCUM t.@card += c.id;
+  D = SELECT d FROM W:t -(FROM_DEVICE>)- DeviceProfile:d
+      ACCUM d.@win_cards += t.@card,
+            IF t.device_new_flag == "New" THEN d.@new_flags += 1 END,
+            IF t.proxy_type != "" THEN d.@proxy_flags += 1 END
+      HAVING d.@win_cards.size() >= min_cards;
+  L = SELECT t FROM D:d -(DEVICE_OF>)- Txn:t;
+  L = SELECT t FROM L:t -(MADE_BY>)- Card:c ACCUM t.@card += c.id;
+  D = SELECT d FROM L:t -(FROM_DEVICE>)- DeviceProfile:d ACCUM d.@life_cards += t.@card
+      HAVING d.@life_cards.size() <= max_lifetime_cards;
+  PRINT D[D.profile, D.@win_cards, D.@life_cards.size(), D.@new_flags, D.@proxy_flags];
+}

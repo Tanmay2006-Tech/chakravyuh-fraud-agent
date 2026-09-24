@@ -1,0 +1,11 @@
+CREATE OR REPLACE QUERY device_neighbors(VERTEX<DeviceProfile> dev, DATETIME from_ts, DATETIME to_ts) FOR GRAPH FraudGraph {
+  /* Who else used this device profile: in the window, over its lifetime, and in which closed cases. */
+  SetAccum<STRING> @card;
+  SetAccum<STRING> @@lifetime_cards; SumAccum<INT> @@lifetime_txns;
+  D = {dev};
+  ALL_T = SELECT t FROM D:d -(DEVICE_OF>)- Txn:t ACCUM @@lifetime_txns += 1;
+  CARDS = SELECT c FROM ALL_T:t -(MADE_BY>)- Card:c ACCUM t.@card += c.id, @@lifetime_cards += c.id;
+  WIN = SELECT t FROM ALL_T:t WHERE t.ts >= from_ts AND t.ts <= to_ts;
+  CASES = SELECT c FROM ALL_T:t -(INVOLVED_IN>)- ClosedCase:c;
+  PRINT WIN; PRINT CASES; PRINT @@lifetime_txns AS lifetime_txns, @@lifetime_cards.size() AS lifetime_cards;
+}

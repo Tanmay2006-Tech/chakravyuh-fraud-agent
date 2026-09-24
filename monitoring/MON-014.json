@@ -1,0 +1,124 @@
+{
+  "case_id": "MON-014",
+  "case": {
+    "status": "closed_legitimate",
+    "verdict": "legitimate",
+    "fraud_probability": 0.04,
+    "pattern": "none",
+    "pattern_description": "",
+    "affected_txn_ids": [],
+    "first_suspicious_txn_id": "",
+    "connected_card_ids": [],
+    "connected_device_profiles": [],
+    "exposure_usd": 0.0,
+    "evidence": [
+      {
+        "claim": "Established cardholder: 28 earlier transactions under this fingerprint since 2016-07-27, none ever reported",
+        "source": "graph",
+        "ref": "query:fingerprint_history(fp=F:C00483-K1|203|25|na)",
+        "entity_ids": [
+          "3480474",
+          "3512186",
+          "3518535"
+        ]
+      },
+      {
+        "claim": "Same cardholder has made 10 earlier purchases at about $15 under product S (e.g. 10-31, 10-31, 11-19)",
+        "source": "graph",
+        "ref": "query:fingerprint_history(fp=F:C00483-K1|203|25|na)",
+        "entity_ids": [
+          "3415698",
+          "3415732",
+          "3471971"
+        ]
+      },
+      {
+        "claim": "The card has paid the same $14.94 (\u00b1$0.15, product S, same email domain) on 6 earlier days: 2016-10-12, 2016-10-18, 2016-10-31, 2016-11-19",
+        "source": "graph",
+        "ref": "query:amount_recurrence(card=C00483-K1, amount=14.94)",
+        "entity_ids": [
+          "3376244",
+          "3415698",
+          "3415732",
+          "3471971"
+        ]
+      },
+      {
+        "claim": "Device profile marked New for this account (iOS Device | iOS 11.2.5 | mobile safari 11.0 | 2208x1242) and never seen on the card before",
+        "source": "graph",
+        "ref": "query:txn_context(t=3519500)",
+        "entity_ids": []
+      },
+      {
+        "claim": "TigerGraph graph algorithm (GDS weakly connected components, tg_wcc) over the Nov\u2013Dec graph of cards-in-use and rare device profiles puts this payment's device in a connected component of 10 cards (11 card fingerprints, 3 device profiles). Context only: it does not change the fraud probability",
+        "source": "graph",
+        "ref": "query:ring_component (GDS tg_wcc over USES_DEVICE)",
+        "entity_ids": [
+          "C00483-K1",
+          "C01109-K2",
+          "C01909-K2",
+          "C04108-K2",
+          "C04984-K2",
+          "C05704-K2",
+          "C06224-K2",
+          "C07212-K2",
+          "C08256-K2",
+          "C11792-K1"
+        ]
+      },
+      {
+        "claim": "Retrieved guidance applied: Card-not-present fraud from a new device: as card-not-present fraud, with the identity record marking the device as New for this account, sometimes behind a proxy. Stronger than plain CNP but not proof, since people buy new phones.",
+        "source": "document",
+        "ref": "card_not_present_new_device",
+        "entity_ids": []
+      }
+    ],
+    "similar_prior_cases": [
+      "CC-4894",
+      "CC-0550"
+    ],
+    "summary": "The case was opened after a portfolio sweep flagged a new device profile on card C00483-K1. Evidence showed the cardholder had a long history of small, consistent purchases on the same device, indicating legitimate use. The new device profile was the only adverse signal, and the fraud probability was 0.04, below the 0.15 threshold. The investigation concluded the transaction was legitimate, the card was not blocked, and the case was closed as legitimate.",
+    "written_to_graph": true,
+    "graph_case_id": "INV-MON-014"
+  },
+  "evidence_requests": [],
+  "next_best_actions": {
+    "initial": [
+      {
+        "action": "ALLOW_TRANSACTION",
+        "route": "auto",
+        "reason": "Section 6: probability 0.04 \u2264 0.15 on 3 independent pieces of legitimate-behaviour evidence"
+      },
+      {
+        "action": "CLOSE_NO_FRAUD",
+        "route": "auto",
+        "reason": "Section 6 / R1: the model score is the only adverse signal; blocking would breach R1"
+      }
+    ],
+    "final": [
+      {
+        "action": "ALLOW_TRANSACTION",
+        "route": "auto",
+        "reason": "Section 6: probability 0.04 \u2264 0.15 on 3 independent pieces of legitimate-behaviour evidence"
+      },
+      {
+        "action": "CLOSE_NO_FRAUD",
+        "route": "auto",
+        "reason": "Section 6 / R1: the model score is the only adverse signal; blocking would breach R1"
+      }
+    ],
+    "what_changed": "nothing"
+  },
+  "sar": {
+    "file": false,
+    "reason": "No report: activity is not confirmed or strongly suspected fraud (section 3a).",
+    "narrative": "",
+    "subjects": [],
+    "total_amount_usd": 0,
+    "activity_dates": []
+  },
+  "stop_reason": "Probability at or below 0.15 on two or more independent pieces of legitimate-behaviour evidence (section 6); verification would not change the decision.",
+  "tool_calls": 12,
+  "tokens": 1471,
+  "latency_s": 123.93
+}

@@ -1,0 +1,243 @@
+{
+  "case_id": "HHG-001",
+  "backend": "tigergraph",
+  "writer": "openai/gpt-oss-120b",
+  "p0": 0.04,
+  "tigergraph_calls": 0,
+  "branches": [],
+  "timeline": [
+    {
+      "at": "2026-09-24T14:49:16",
+      "stage": "opened",
+      "status": "open",
+      "text": "Investigation INV-HHG-001 opened from a model risk score on payment 3514030"
+    },
+    {
+      "at": "2026-09-24T14:49:29",
+      "stage": "evidence",
+      "status": "investigating",
+      "text": "4 findings from the graph added to the case"
+    },
+    {
+      "at": "2026-09-24T14:49:34",
+      "stage": "memory",
+      "status": "investigating",
+      "text": "Memory recalled: 4 closed case(s) on the card, 0 confirmed fraud on the fingerprint, 0 earlier Chakravyuh investigation(s)"
+    },
+    {
+      "at": "2026-09-24T14:49:34",
+      "stage": "assessed",
+      "status": "investigating",
+      "text": "Fraud probability 0.04; leading hypothesis out of region use"
+    },
+    {
+      "at": "2026-09-24T14:49:34",
+      "stage": "initial_recommendation",
+      "status": "decided",
+      "text": "Initial recommendation: ALLOW_TRANSACTION, CLOSE_NO_FRAUD",
+      "executed": [
+        "ALLOW_TRANSACTION",
+        "CLOSE_NO_FRAUD"
+      ],
+      "queued": []
+    },
+    {
+      "at": "2026-09-24T14:49:37",
+      "stage": "final_recommendation",
+      "status": "decided",
+      "text": "Final recommendation (legitimate, probability 0.04): ALLOW_TRANSACTION, CLOSE_NO_FRAUD",
+      "executed": [],
+      "queued": []
+    },
+    {
+      "at": "2026-09-24T14:49:41",
+      "stage": "closed",
+      "status": "closed_legitimate",
+      "text": "Investigation closed: not fraud"
+    }
+  ],
+  "executions": [
+    {
+      "action": "ALLOW_TRANSACTION",
+      "phase": "initial",
+      "status": "executed",
+      "receipt": "R-81a7d44d",
+      "detail": "authorization API (mock): payment released"
+    },
+    {
+      "action": "CLOSE_NO_FRAUD",
+      "phase": "initial",
+      "status": "executed",
+      "receipt": "R-ecb3037f",
+      "detail": "case management: investigation closed as not fraud"
+    }
+  ],
+  "trace": [
+    {
+      "kind": "tool",
+      "tool": "txn_context",
+      "backend": "local-fallback",
+      "args": {
+        "txn_id": "3514030"
+      },
+      "result": "id=3514030, ts=2016-12-04 19:55:28, amount=77.07, product=W, channel=in_person, risk_score=0.61",
+      "ms": 2639
+    },
+    {
+      "kind": "step",
+      "step": "intake",
+      "msg": "risk_score trigger on C12382-K1: Real-time model scored transaction 3514030 ($77.07, in billing region 444.0) at 0.61. Review and decide."
+    },
+    {
+      "kind": "tool",
+      "tool": "card_profile",
+      "backend": "local-fallback",
+      "args": {
+        "card_id": "C12382-K1",
+        "before_ts": "2016-12-04 19:55:28"
+      },
+      "result": "n=358, total=41893.45, sumsq=9776051.8209, max_amount=845.01, regions=40, products=2",
+      "ms": 3079
+    },
+    {
+      "kind": "tool",
+      "tool": "fingerprint_history",
+      "backend": "local-fallback",
+      "args": {
+        "fp": "F:C12382-K1|444|73|na"
+      },
+      "result": "txns=15, closed_cases=0, agent_cases=1",
+      "ms": 2587
+    },
+    {
+      "kind": "tool",
+      "tool": "amount_recurrence",
+      "backend": "local-fallback",
+      "args": {
+        "card_id": "C12382-K1",
+        "amount": 77.07,
+        "tol": 0.38534999999999997,
+        "product": "W",
+        "before_ts": "2016-12-04 19:55:28"
+      },
+      "result": "7 rows",
+      "ms": 3914
+    },
+    {
+      "kind": "tool",
+      "tool": "card_window",
+      "backend": "local-fallback",
+      "args": {
+        "card_id": "C12382-K1",
+        "from_ts": "2016-12-04 16:55:28",
+        "to_ts": "2016-12-04 20:55:28"
+      },
+      "result": "2 rows",
+      "ms": 3394
+    },
+    {
+      "kind": "step",
+      "step": "evidence",
+      "msg": "Established cardholder: 10 earlier transactions under this fingerprint since 2016-09-13, none ever reported",
+      "weight": -1.5,
+      "family": "fingerprint_history"
+    },
+    {
+      "kind": "step",
+      "step": "evidence",
+      "msg": "Same cardholder has made 2 earlier purchases at about $77 under product W (e.g. 11-19, 11-26)",
+      "weight": -1.2,
+      "family": "habit"
+    },
+    {
+      "kind": "step",
+      "step": "evidence",
+      "msg": "Billing region 444 is routine for this card: purchases there on 9 different days before \u2014 bank memory: less reassuring than it looks: 60% of 76 past model alerts with this signal were fraud (vs 29% without), so here it counts for little",
+      "weight": 0.25,
+      "family": "region"
+    },
+    {
+      "kind": "step",
+      "step": "evidence",
+      "msg": "Bank model scored the transaction 0.61 (treated as a weak input: above 0.7 most alerts are legitimate)",
+      "weight": 0.13,
+      "family": "model_score"
+    },
+    {
+      "kind": "tool",
+      "tool": "card_cases",
+      "backend": "local-fallback",
+      "args": {
+        "card_id": "C12382-K1"
+      },
+      "result": "closed_cases=4, agent_cases=1",
+      "ms": 2680
+    },
+    {
+      "kind": "tool",
+      "tool": "vector_search",
+      "backend": "local-fallback",
+      "args": {
+        "kind": "cases",
+        "k": 5
+      },
+      "result": "5 rows",
+      "ms": 2310
+    },
+    {
+      "kind": "step",
+      "step": "memory",
+      "msg": "4 closed case(s) on this card; 0 confirmed-fraud case(s) on this fingerprint; semantic matches: CC-4440, CC-2484, CC-4492"
+    },
+    {
+      "kind": "step",
+      "step": "assess",
+      "msg": "fraud probability 0.04 from 0 independent fraud signal(s) and 2 legitimacy signal(s); leading hypothesis out_of_region_use"
+    },
+    {
+      "kind": "step",
+      "step": "decide",
+      "msg": "initial: ALLOW_TRANSACTION[auto], CLOSE_NO_FRAUD[auto]"
+    },
+    {
+      "kind": "tool",
+      "tool": "write_case",
+      "backend": "local-fallback",
+      "args": {
+        "case_vertex": "{'id': 'INV-HHG-001', 'hhg_case': 'HHG-001', 'opened_at': '2016-12-05 01:55:28', 'case_status': 'open', 'verdict': 'pending', 'pattern': 'out_of_region_use', 'probability': 0.04, 'exposure': 0.0, 'sar_filed': False, 'summary': '', 'final_actions': '', 'timeline': '[{\"at\": \"2026-09-24T14:49:16\", \"stage\": \"opened\", \"status\": \"open\", \"text\": \"Investigation INV-HHG-001 opened from a model risk score on payment 3514030\"}, {\"at\": \"2026-09-24T14:49:29\", \"stage\": \"evidence\", \"status\": \"investigating\", \"text\": \"4 findings from the graph added to the case\"}, {\"at\": \"2026-09-24T14:49:34\", \"stage\": \"memory\", \"status\": \"investigating\", \"text\": \"Memory recalled: 4 closed case(s) on the card, 0 confirmed fraud on the fingerprint, 0 earlier Chakravyuh investigation(s)\"}, {\"at\": \"2026-09-24T14:49:34\", \"stage\": \"assessed\", \"status\": \"investigating\", \"text\": \"Fraud probability 0.04; leading hypothesis out of region use\"}, {\"at\": \"2026-09-24T14:49:34\", \"stage\": \"initial_recommendation\", \"status\": \"decided\", \"text\": \"Initial recommendation: ALLOW_TRANSACTION, CLOSE_NO_FRAUD\", \"executed\": [\"ALLOW_TRANSACTION\", \"CLOSE_NO_FRAUD\"], \"queued\": []}]'}",
+        "edges": "{'card_id': 'C12382-K1', 'txn_ids': ['3514030'], 'connected_cards': [], 'device_ids': [], 'similar_cases': [], 'pattern': 'out_of_region_use'}",
+        "embedding": "None"
+      },
+      "result": "written=INV-HHG-001",
+      "ms": 2705
+    },
+    {
+      "kind": "step",
+      "step": "decide",
+      "msg": "final (legitimate, p=0.04): ALLOW_TRANSACTION[auto], CLOSE_NO_FRAUD[auto]"
+    },
+    {
+      "kind": "tool",
+      "tool": "vector_search",
+      "backend": "local-fallback",
+      "args": {
+        "kind": "knowledge",
+        "k": 6
+      },
+      "result": "6 rows",
+      "ms": 2583
+    },
+    {
+      "kind": "tool",
+      "tool": "write_case",
+      "backend": "local-fallback",
+      "args": {
+        "case_vertex": "{'id': 'INV-HHG-001', 'hhg_case': 'HHG-001', 'opened_at': '2016-12-05 01:55:28', 'case_status': 'closed_legitimate', 'verdict': 'legitimate', 'pattern': 'out_of_region_use', 'probability': 0.04, 'exposure': 0.0, 'sar_filed': False, 'summary': 'A transaction of $77.07 on card C12382-K1 was flagged by a real-time model with a score of 0.61. The investigation found multiple earlier purchases by the same cardholder, including two similar $77 purchases and a history of billing region 444, indicating genuine use. The model score was the only adverse signal and the probability of fraud was low (0.04), so the transaction was allowed. The case was closed as legitimate and no further action was taken.', 'final_actions': 'ALLOW_TRANSACTION|CLOSE_NO_FRAUD', 'timeline': '[{\"at\": \"2026-09-24T14:49:16\", \"stage\": \"opened\", \"status\": \"open\", \"text\": \"Investigation INV-HHG-001 opened from a model risk score on payment 3514030\"}, {\"at\": \"2026-09-24T14:49:29\", \"stage\": \"evidence\", \"status\": \"investigating\", \"text\": \"4 findings from the graph added to the case\"}, {\"at\": \"2026-09-24T14:49:34\", \"stage\": \"memory\", \"status\": \"investigating\", \"text\": \"Memory recalled: 4 closed case(s) on the card, 0 confirmed fraud on the fingerprint, 0 earlier Chakravyuh investigation(s)\"}, {\"at\": \"2026-09-24T14:49:34\", \"stage\": \"assessed\", \"status\": \"investigating\", \"text\": \"Fraud probability 0.04; leading hypothesis out of region use\"}, {\"at\": \"2026-09-24T14:49:34\", \"stage\": \"initial_recommendation\", \"status\": \"decided\", \"text\": \"Initial recommendation: ALLOW_TRANSACTION, CLOSE_NO_FRAUD\", \"executed\": [\"ALLOW_TRANSACTION\", \"CLOSE_NO_FRAUD\"], \"queued\": []}, {\"at\": \"2026-09-24T14:49:37\", \"stage\": \"final_recommendation\", \"status\": \"decided\", \"text\": \"Final recommendation (legitimate, probability 0.04): ALLOW_TRANSACTION, CLOSE_NO_FRAUD\", \"executed\": [], \"queued\": []}, {\"at\": \"2026-09-24T14:49:41\", \"stage\": \"closed\", \"status\": \"closed_legitimate\", \"text\": \"Investigation closed: not fraud\"}]'}",
+        "edges": "{'card_id': 'C12382-K1', 'txn_ids': ['3514030'], 'connected_cards': [], 'device_ids': [], 'similar_cases': ['CC-1066', 'CC-2964'], 'pattern': 'out_of_region_use'}",
+        "embedding": "[-0.02039118 -0.03407878 -0.05710066 -0.01002867  0.02355602 -0.05683358\n  0.04962255  0.03907309  0.03827186 -0.0284435   0.0263336   0.01315345\n -0.05565845  0.03087388 -0.04120969 -0.04641765  0.04708534 -0.09678801\n  0.06233533  0.07301833  0.01960331 -0.03285024 -0.00550842 -0.02796276\n  0.04177054  0.03274341  0.00249548 -0.06570047 -0.03394524 -0.17306466\n -0.01428852  0.00487412  0.05971799  0.01773379  0.01613134 -0.04502886\n -0.03624209 -0.02793605 -0.00395605 -0.02323553  0.02857704  0.02509171\n -0.00187453 -0.01502297  0.04988963 -0.02499823 -0.01981697  0.01108362\n  0.06532657  0.06105337  0.03423903 -0.02549232  0.00319655  0.05715407\n -0.01415498  0.02972546  0.03998114  0.01897569  0.01918935  0.01367425\n  0.03258316  0.01340717 -0.11398765 -0.02234083 -0.0466046   0.02644043\n -0.00432662 -0.029859    0.00630965  0.0161714   0.00831939 -0.01321354\n -0.05149208 -0.01198499  0.01649189 -0.02693452  0.02367621 -0.00213827\n -0.01737324  0.0419842  -0.0529877  -0.00247044  0.00960135 -0.05613919\n -0.03501355 -0.001418    0.06281606  0.02306193  0.00323161  0.00820588\n  0.10373197  0.01641176  0.00489081 -0.00822591 -0.07376614 -0.00236695\n -0.01494285 -0.0053849  -0.03290365  0.4356529   0.0254389   0.01814775\n -0.01878873  0.01152429 -0.0085197  -0.03274341 -0.02374298  0.0079989\n  0.02852362 -0.06495266 -0.01816111  0.01268607  0.08145791 -0.04607045\n -0.02429048  0.09502532  0.04355995 -0.00769176  0.07862691  0.00916735\n -0.02025765  0.08626526  0.02559915 -0.03458622 -0.02967204 -0.0334378\n  0.0362688   0.10255684 -0.02021758  0.05029024 -0.03955382 -0.0778791\n -0.04617728  0.02184674  0.01877538 -0.02945838 -0.0110302   0.08140449\n  0.05565845  0.01805428 -0.05053061  0.0186819  -0.03028632 -0.03052668\n -0.07296491  0.06500608  0.01769372  0.01519657 -0.01987039 -0.03669612\n  0.06527315  0.02103216 -0.01370095 -0.04972938  0.01079651  0.02376968\n  0.04412081  0.01862849 -0.05242684 -0.01694592  0.00975492 -0.04249165\n -0.0207918   0.09796315  0.00220003 -0.06895879  0.05173245  0.02964533\n -0.01597109 -0.02156631  0.00243038 -0.00110586  0.02023094  0.02342249\n -0.02351596 -0.08327401 -0.0067136   0.02674757 -0.01774714 -0.0225812\n -0.01048937  0.00295452 -0.0611602  -0.00841954  0.02670751 -0.02307529\n -0.06858488 -0.01119045  0.04505557  0.00507109 -0.05055732 -0.02780252\n -0.08546403  0.0515722  -0.0498095  -0.02502494 -0.06169435  0.00180276\n  0.00985507  0.00317986  0.11366716  0.00923412  0.02141942 -0.00412631\n -0.02306193  0.06586072  0.02045795 -0.06377754 -0.05346844 -0.01162444\n  0.02288834  0.01002867 -0.00753152  0.01677232  0.04246494 -0.01545029\n  0.00798555  0.01949648 -0.00222507  0.00430992 -0.06164093  0.0018111\n  0.02320883 -0.34100148 -0.00525136 -0.00824594  0.05592553  0.02033777\n -0.05645968  0.00136459 -0.03990102  0.02656062  0.07018734 -0.01063627\n  0.04676485 -0.03277012 -0.02087192  0.02195357  0.04182396 -0.05461686\n  0.01402144 -0.03979419  0.00071234 -0.08092375  0.0186819  -0.04428105\n -0.04932877  0.03394524  0.03167511  0.14667764 -0.01780055 -0.0476462\n -0.01479596  0.00332342 -0.01324025 -0.01022898 -0.0430258   0.04804681\n -0.04417422 -0.00322326  0.00700404 -0.02554573 -0.03146145 -0.06318997\n -0.01729311  0.01097011 -0.04866108 -0.01161777  0.02366285 -0.02467774\n  0.02426377 -0.00472055  0.08824161 -0.01726641 -0.04494874  0.01601115\n  0.05528454  0.02924472 -0.03693648 -0.07649031 -0.00251551 -0.04689839\n  0.02120576 -0.01331369 -0.01472919  0.0234759  -0.01583755  0.01605121\n  0.00751816  0.0193763  -0.03907309 -0.0021149  -0.00967479 -0.01040258\n  0.09342287  0.01487608 -0.03466635  0.09491849  0.03955382 -0.00993519\n -0.01237893 -0.0129932  -0.00249381  0.03506696  0.01165783  0.02649385\n  0.04086249 -0.00402616  0.03637563  0.07884057 -0.00825262  0.04219786\n -0.02758886 -0.02780252 -0.03966065 -0.02290169 -0.01239228  0.03864577\n -0.03509367 -0.24293151 -0.05480381 -0.06073288  0.04668473  0.03143474\n  0.00043775  0.03942028  0.02129924 -0.08145791 -0.02507835  0.00931424\n  0.0444413   0.05162562 -0.01316013  0.02179333 -0.00057755 -0.01225207\n -0.07365931  0.06297631  0.04185067  0.04246494  0.02083186  0.08722673\n  0.01436864 -0.01366089 -0.00491418  0.0265072   0.04147676  0.01438199\n  0.01223204 -0.04131652  0.04743254  0.07178979  0.02470445  0.06869172\n  0.00716429 -0.01133066  0.03544087  0.01056282  0.00217666 -0.04003456\n  0.01792074 -0.02956521 -0.05373551 -0.01893562  0.0551243  -0.03560111\n -0.04956914  0.01460901  0.00797887  0.02642708 -0.02632025  0.01646518\n -0.04569655  0.01857507  0.04948901 -0.10666979  0.00244874  0.04011468\n -0.02083186 -0.01491614  0.05533796  0.04404068  0.03926004 -0.02163308]"
+      },
+      "result": "written=INV-HHG-001",
+      "ms": 2134
+    }
+  ]
+}

@@ -1,0 +1,21 @@
+# Demo video script (about 4½ minutes)
+
+Record the console full-screen at 1080p, with Savanna open in a second tab. Record against the committed TigerGraph run; do not re-run the cases just for the video (if you ever must, reset case memory first: `python scripts/reset_case_memory.py --delete`, then `run_cases.py`, then `monitor.py`).
+
+**0:00–0:25 — Hook (overview page).** The hero and the four counters. Voice: "Fraud analysts spend most of their time joining data. Chakravyuh runs the whole investigation on TigerGraph, and knows when it doesn't know enough to act. Twenty alerts: nine fraud, ten genuine customers cleared, one honestly unsure, four regulator reports, and every one explained." Point at the three highlight cards: two hidden schemes, learned from the bank's history, asked before it acted.
+
+**0:25–0:50 — How it works.** Click "How it works" and scroll the steps. Voice: "Like the chakravyuh formation, it works ring by ring: the payment, the cardholder's own habits, the device and every other card it touched, and the bank's past cases. Every call goes to TigerGraph through the MCP server: installed GSQL, TigerVector search, and a TigerGraph graph algorithm." Stop on the "Run a graph algorithm" step for a beat.
+
+**0:50–1:15 — The graph (Savanna tab).** Show the schema: Txn, Card, Fingerprint, DeviceProfile, ClosedCase, InvestigationCase, and the `USES_DEVICE` edge. Show the installed queries, including `tg_wcc`. Voice: "Card IDs had to be reverse-engineered, and a 'fingerprint' separates the person really using a card from a customer ID shared by many people. That same idea is why connected components runs on the card-in-use: on whole cards it merges five thousand cards into one blob."
+
+**1:15–2:05 — A scheme nobody documented, HHG-006.** Click "See it catch a hidden scheme". The payment ring is red: four purchases just under $500 in 30 minutes. The device-and-cards ring: the same run shape on eleven other cards. "What to do now": block (team lead approves), watch the linked cards, file a report (fraud manager approves); click **Approve** on the block to show the approval queue. The agent only did the safe actions itself. Scroll to "Case record": opened, evidence added, memory recalled, analyst asked, escalated. Open the **Regulator report** tab and scroll the narrative.
+
+**2:05–2:45 — Knowing when not to block, HHG-010.** A $1,000.03 online payment from a new device, model score 0.90: it looks like textbook fraud. "How the decision was reached": the fraud-chance bar moves from 0.13 before asking to 0.04 after. Evidence tab: "Device profile marked New … bank memory: less alarming than it looks: 8% of 577 past model alerts with this signal were fraud". "The plan for every possible answer": deny → block and report; confirm → let it through; silence → decline, watch, escalate. The one-time passcode confirms it, so a genuine customer is never blocked.
+
+**2:45–3:15 — Honest uncertainty, HHG-002.** One weak signal ($292 on a card that averages $45), probability 0.37. Under R1 the agent asks the customer instead of blocking. No reply in 24 hours, so R4: decline the pending payment, watch the card, keep the case open. Read the "what changed" line aloud: it names the rule behind every new action.
+
+**3:15–3:50 — A ring found by a graph algorithm, HHG-014.** The device ring and the line under it: "Graph algorithm: TigerGraph WCC, a connected component of 28 cards sharing 1 rare device profile." Voice: "This is shown as context and never moves the score; a test proves every decision is identical without it." Mention that the monitor used the same algorithm to list 85 multi-device rings a simple shared-device check cannot see (`monitoring/wcc_rings.json`).
+
+**3:50–4:20 — Memory.** Savanna: open vertex `INV-HHG-014`, its `timeline` attribute and its edges to the card, device and prior cases. "The agent learns from its own investigations: the monitoring sweep's MON-001 cites INV-HHG-006." Back in the console, the "Step by step" tab: every call served by TigerGraph. "How it works": 49% → 66% correct on past cases after learning from the bank's history.
+
+**4:20–4:35 — Close.** Back to the twenty tiles. "Chakravyuh. Nothing gets out of the rings that shouldn't, and no genuine customer gets trapped." Show the repo URL and the live URL.

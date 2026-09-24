@@ -1,0 +1,8 @@
+CREATE OR REPLACE QUERY card_cases(VERTEX<Card> card) FOR GRAPH FraudGraph {
+  /* Case memory by card: closed cases and agent investigations on or connected to this card. */
+  S = {card};
+  C  = SELECT c FROM S:s -(HAS_CASE>)- ClosedCase:c;
+  CC = SELECT c FROM S:s -(CONNECTED_CASE>)- ClosedCase:c;
+  I  = SELECT c FROM S:s -((HAS_CASE>|CONNECTED_CASE>))- InvestigationCase:c;
+  PRINT C; PRINT CC; PRINT I;
+}

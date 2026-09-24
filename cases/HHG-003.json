@@ -1,0 +1,117 @@
+{
+  "case_id": "HHG-003",
+  "case": {
+    "status": "closed_legitimate",
+    "verdict": "legitimate",
+    "fraud_probability": 0.1,
+    "pattern": "none",
+    "pattern_description": "",
+    "affected_txn_ids": [],
+    "first_suspicious_txn_id": "",
+    "connected_card_ids": [],
+    "connected_device_profiles": [],
+    "exposure_usd": 0.0,
+    "evidence": [
+      {
+        "claim": "The card has paid the same $49.00 (\u00b1$0.24, product W, same region) on 2 earlier days: 2016-09-27, 2016-12-03",
+        "source": "graph",
+        "ref": "query:amount_recurrence(card=C08623-K2, amount=49.0)",
+        "entity_ids": [
+          "3305349",
+          "3305359",
+          "3511680"
+        ]
+      },
+      {
+        "claim": "Billing region 330 is routine for this card: purchases there on 33 different days before",
+        "source": "graph",
+        "ref": "query:card_profile(card=C08623-K2)",
+        "entity_ids": [
+          "C08623-K2"
+        ]
+      },
+      {
+        "claim": "Customer report: 'I never made this $49.00 purchase. Please check my card.' Refers to 3530164.",
+        "source": "customer",
+        "ref": "case_pack:HHG-003",
+        "entity_ids": [
+          "3530164"
+        ]
+      },
+      {
+        "claim": "Assumed response to customer_validation: Customer, shown the earlier identical charges, recognises it as their own recurring purchase and withdraws the dispute",
+        "source": "customer",
+        "ref": "evidence_request:1",
+        "entity_ids": []
+      },
+      {
+        "claim": "Retrieved guidance applied: R7 Disputed but legitimate. When the customer disputes a charge that matches their own recurring pattern (same merchant, same amount, monthly), recommend CREATE_CASE, VERIFY_WITH_CUSTOMER and WARN_CUSTOMER. Do not block.",
+        "source": "document",
+        "ref": "Fraud Policy R7",
+        "entity_ids": []
+      }
+    ],
+    "similar_prior_cases": [
+      "CC-3327"
+    ],
+    "summary": "The customer reported a $49.00 purchase they said they did not make. The investigation found two earlier identical $49.00 purchases on the same card and a long history of purchases in the billing region, indicating the charge is part of a recurring pattern. The customer was asked to validate the charge, recognized it as their own recurring purchase, and withdrew the dispute. The case was closed as legitimate and the customer was warned about the recurring charge. The case remains closed with no fraud finding.",
+    "written_to_graph": false,
+    "graph_case_id": ""
+  },
+  "evidence_requests": [
+    {
+      "type": "customer_validation",
+      "asked_after_step": 5,
+      "assumed_response": "Customer, shown the earlier identical charges, recognises it as their own recurring purchase and withdraws the dispute"
+    }
+  ],
+  "next_best_actions": {
+    "initial": [
+      {
+        "action": "VERIFY_WITH_CUSTOMER",
+        "route": "auto",
+        "reason": "R7: the disputed charge matches the card's own recurring charge; confirm before any block"
+      },
+      {
+        "action": "CREATE_CASE",
+        "route": "auto",
+        "reason": "R7 / section 3a: customer disputes a charge"
+      },
+      {
+        "action": "WARN_CUSTOMER",
+        "route": "auto",
+        "reason": "R7: remind the customer of the recurring charge"
+      }
+    ],
+    "final": [
+      {
+        "action": "CREATE_CASE",
+        "route": "auto",
+        "reason": "R7 / R3: case kept on file and closed with the customer's confirmation"
+      },
+      {
+        "action": "WARN_CUSTOMER",
+        "route": "auto",
+        "reason": "R7: informational reminder about the recurring charge"
+      },
+      {
+        "action": "CLOSE_NO_FRAUD",
+        "route": "auto",
+        "reason": "R3: customer confirmed the recurring charge is theirs"
+      }
+    ],
+    "what_changed": "Customer, shown the earlier identical charges, recognises it as their own recurring purchase and withdraws the dispute. As a result the probability stayed at 0.10; added CLOSE_NO_FRAUD (R3); no longer needed: VERIFY_WITH_CUSTOMER."
+  },
+  "sar": {
+    "file": false,
+    "reason": "No report: activity is not confirmed or strongly suspected fraud (section 3a).",
+    "narrative": "",
+    "subjects": [],
+    "total_amount_usd": 0,
+    "activity_dates": []
+  },
+  "stop_reason": "The customer's confirmation of their own recurring charge settles the dispute (section 6).",
+  "tool_calls": 10,
+  "tokens": 1428,
+  "latency_s": 24.34
+}

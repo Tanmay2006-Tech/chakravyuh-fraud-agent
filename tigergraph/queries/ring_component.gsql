@@ -1,0 +1,23 @@
+CREATE OR REPLACE QUERY ring_component(VERTEX<DeviceProfile> dev, INT max_list) FOR GRAPH FraudGraph {
+  /* Graph algorithm evidence: the weakly connected component that GDS tg_wcc stored in wcc_id, over the
+     card-in-use x rare-device graph (USES_DEVICE). Returns the component's size and, when it is small enough
+     to be a ring, its members. A device with no USES_DEVICE edge is not rare (or not active) and has no ring. */
+  MaxAccum<INT> @@comp_id = -1;
+  SumAccum<INT> @@n_fingerprints, @@n_devices;
+  SetAccum<STRING> @@fingerprints, @@devices;
+  S = {dev};
+  S = SELECT d FROM S:d POST-ACCUM @@comp_id += d.wcc_id;
+  E = SELECT f FROM S:d -(USES_DEVICE)- Fingerprint:f;
+  IF E.size() > 0 THEN
+    F = {Fingerprint.*};
+    F = SELECT f FROM F:f WHERE f.wcc_id == @@comp_id ACCUM @@n_fingerprints += 1;
+    G = {DeviceProfile.*};
+    G = SELECT d FROM G:d WHERE d.wcc_id == @@comp_id ACCUM @@n_devices += 1;
+    IF @@n_fingerprints <= max_list THEN
+      F = SELECT f FROM F:f ACCUM @@fingerprints += f.id;
+      G = SELECT d FROM G:d ACCUM @@devices += d.id;
+    END;
+  END;
+  PRINT @@comp_id AS comp_id, @@n_fingerprints AS n_fingerprints, @@n_devices AS n_devices,
+        @@fingerprints AS fingerprints, @@devices AS devices;
+}

@@ -1,0 +1,15 @@
+CREATE OR REPLACE QUERY build_uses_device(DATETIME from_ts, DATETIME to_ts, INT max_lifetime_cards) FOR GRAPH FraudGraph SYNTAX v2 {
+  /* Projects the graph that GDS tg_wcc runs on: one undirected USES_DEVICE edge per card-in-use (Fingerprint)
+     and RARE device profile that transacted together online inside [from_ts, to_ts]. A profile is rare when
+     at most max_lifetime_cards cards used it over its whole life (the same filter as shared_device_scan);
+     popular profiles are shared by definition and would glue every card into one component. */
+  SetAccum<VERTEX<Card>> @life_cards;
+  SumAccum<INT> @@edges;
+  D = SELECT d FROM DeviceProfile:d -(DEVICE_OF>)- Txn:t -(MADE_BY>)- Card:c
+      ACCUM d.@life_cards += c
+      HAVING d.@life_cards.size() <= max_lifetime_cards;
+  F = SELECT f FROM D:d -(DEVICE_OF>)- Txn:t -(USED_FINGERPRINT>)- Fingerprint:f
+      WHERE t.channel == "online" AND t.ts >= from_ts AND t.ts <= to_ts
+      ACCUM INSERT INTO USES_DEVICE VALUES (f, d), @@edges += 1;
+  PRINT D.size() AS rare_devices, F.size() AS fingerprints, @@edges AS edge_inserts;
+}

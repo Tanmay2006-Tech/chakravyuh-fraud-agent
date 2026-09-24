@@ -1,0 +1,129 @@
+{
+  "case_id": "HHG-007",
+  "case": {
+    "status": "closed_fraud",
+    "verdict": "fraud",
+    "fraud_probability": 0.98,
+    "pattern": "account_takeover",
+    "pattern_description": "",
+    "affected_txn_ids": [
+      "3428558",
+      "3444972",
+      "3508487",
+      "3514948"
+    ],
+    "first_suspicious_txn_id": "3428558",
+    "connected_card_ids": [],
+    "connected_device_profiles": [],
+    "exposure_usd": 372.85,
+    "evidence": [
+      {
+        "claim": "The same card fingerprint (card, billing region, account start, email) appears in 3 confirmed-fraud closed case(s): CC-2565, CC-2834, CC-5521 (account_takeover, out_of_region_use) \u2014 bank memory: 100% of 62 past model alerts with this signal were fraud (vs 27% without)",
+        "source": "graph",
+        "ref": "query:fingerprint_history(fp=F:C09933-K2|264|50|gmail.com) + calibration:closed_cases",
+        "entity_ids": [
+          "CC-2565",
+          "CC-2834",
+          "CC-5521"
+        ]
+      },
+      {
+        "claim": "Bank model scored the transaction 0.87 (treated as a weak input: above 0.7 most alerts are legitimate)",
+        "source": "external",
+        "ref": "case_pack:HHG-007",
+        "entity_ids": [
+          "3514948"
+        ]
+      },
+      {
+        "claim": "Fraud episode: 4 transaction(s) on C09933-K2 from 2016-11-04 06:52 to 2016-12-05 00:46, $372.85 in total ($72.04, $71.93, $116.96, $111.92)",
+        "source": "graph",
+        "ref": "query:fingerprint_history / card_window",
+        "entity_ids": [
+          "3428558",
+          "3444972",
+          "3508487",
+          "3514948"
+        ]
+      },
+      {
+        "claim": "Assumed response to customer_validation: Customer states they did not make the transaction and still has the card",
+        "source": "customer",
+        "ref": "evidence_request:1",
+        "entity_ids": []
+      },
+      {
+        "claim": "Retrieved guidance applied: Account takeover: mixed-channel activity inconsistent with the cardholder, often with device and match-flag anomalies, pointing to stolen credentials rather than a stolen number.",
+        "source": "document",
+        "ref": "account_takeover",
+        "entity_ids": []
+      }
+    ],
+    "similar_prior_cases": [
+      "CC-2565",
+      "CC-2834",
+      "CC-5521",
+      "CC-1524",
+      "CC-1228"
+    ],
+    "summary": "The investigation found that the card was used in multiple in-person purchases and the same card fingerprint appears in three confirmed-fraud cases, and the bank model gave the latest transaction a score of 0.87, which is considered suspicious. The customer said they did not make the transaction and still has the card, but the evidence points to fraud, so the case was closed as fraud. The pending transaction was declined, the card was blocked, and a case was created. Because the exposure was $372.85, which is below the $2,500 threshold, the actions followed policy R2. The case remains closed as fraud.",
+    "written_to_graph": true,
+    "graph_case_id": "INV-HHG-007"
+  },
+  "evidence_requests": [
+    {
+      "type": "customer_validation",
+      "asked_after_step": 5,
+      "assumed_response": "Customer states they did not make the transaction and still has the card"
+    }
+  ],
+  "next_best_actions": {
+    "initial": [
+      {
+        "action": "DECLINE_TRANSACTION",
+        "route": "L1",
+        "reason": "R1 / section 3b: probability 0.92 is high enough to hold the pending authorization while verification is outstanding"
+      },
+      {
+        "action": "VERIFY_WITH_CUSTOMER",
+        "route": "auto",
+        "reason": "Section 3b: probability 0.92 rests on one family of evidence; confirm with the cardholder before blocking"
+      },
+      {
+        "action": "CREATE_CASE",
+        "route": "auto",
+        "reason": "Section 3a: a case is opened whenever evidence is requested"
+      }
+    ],
+    "final": [
+      {
+        "action": "DECLINE_TRANSACTION",
+        "route": "L1",
+        "reason": "R2: stop pending authorizations on the compromised card"
+      },
+      {
+        "action": "BLOCK_CARD",
+        "route": "L1",
+        "reason": "R2: card compromised; exposure $372.85 \u2264 $2,500"
+      },
+      {
+        "action": "CREATE_CASE",
+        "route": "auto",
+        "reason": "R2 / section 3a: fraud case with evidence written to the graph"
+      }
+    ],
+    "what_changed": "Customer states they did not make the transaction and still has the card. As a result the probability moved from 0.92 to 0.98; added BLOCK_CARD (R2); no longer needed: VERIFY_WITH_CUSTOMER."
+  },
+  "sar": {
+    "file": false,
+    "reason": "Case only, no report: exposure $372.85 is under $1,000 and nothing links it to a shared device or another customer's fraud (section 3a).",
+    "narrative": "",
+    "subjects": [],
+    "total_amount_usd": 0,
+    "activity_dates": []
+  },
+  "stop_reason": "The customer's denial settled the question (section 6).",
+  "tool_calls": 10,
+  "tokens": 1771,
+  "latency_s": 3.13
+}

@@ -1,0 +1,10 @@
+pandas>=2.1
+pyarrow>=14
+numpy>=1.26
+tigergraph-mcp>=1.0.3        # TigerGraph MCP server (pulls in pyTigerGraph and the mcp SDK)
+mcp>=1.0
+langgraph>=0.2
+openai>=1.40                 # OpenAI-compatible client for Groq / Gemini
+fastembed>=0.3               # bge-small-en-v1.5 embeddings (384-d), CPU only
+python-dotenv>=1.0
+streamlit>=1.40

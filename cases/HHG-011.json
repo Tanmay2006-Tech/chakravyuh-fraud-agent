@@ -1,0 +1,182 @@
+{
+  "case_id": "HHG-011",
+  "case": {
+    "status": "closed_fraud",
+    "verdict": "fraud",
+    "fraud_probability": 0.9,
+    "pattern": "card_not_present_new_device",
+    "pattern_description": "",
+    "affected_txn_ids": [
+      "3583368"
+    ],
+    "first_suspicious_txn_id": "3583368",
+    "connected_card_ids": [
+      "C03938-K1",
+      "C05595-K1",
+      "C05678-K1"
+    ],
+    "connected_device_profiles": [
+      "SM-G610F Build/NRD90M | ? | chrome 66.0 for android | ?"
+    ],
+    "exposure_usd": 131.3,
+    "evidence": [
+      {
+        "claim": "Shared origin: this device profile (SM-G610F Build/NRD90M | ? | chrome 66.0 for android | ?) touched 4 different cards within \u00b115 days \u2014 a rare profile (only 4 cards in its lifetime) where 3 other cards show the same email domain and an amount within 10% of $131.30",
+        "source": "graph",
+        "ref": "query:device_neighbors(dev=Da2a1154525, \u00b115d)",
+        "entity_ids": [
+          "C03938-K1",
+          "C05595-K1",
+          "C05678-K1"
+        ]
+      },
+      {
+        "claim": "The card has paid the same $131.30 (\u00b1$0.66, product C, same email domain) on 3 earlier days: 2016-08-21, 2016-10-19, 2016-12-09",
+        "source": "graph",
+        "ref": "query:amount_recurrence(card=C11923-K2, amount=131.3)",
+        "entity_ids": [
+          "3193355",
+          "3377879",
+          "3528954"
+        ]
+      },
+      {
+        "claim": "Device profile marked New for this account (SM-G610F Build/NRD90M | ? | chrome 66.0 for android | ?) and never seen on the card before",
+        "source": "graph",
+        "ref": "query:txn_context(t=3583368)",
+        "entity_ids": []
+      },
+      {
+        "claim": "TigerGraph graph algorithm (GDS weakly connected components, tg_wcc) puts this payment's device in a large, loosely connected cluster (3,554 card fingerprints across 1,016 rare device profiles): too large to read as a single ring. Context only: it does not change the fraud probability",
+        "source": "graph",
+        "ref": "query:ring_component (GDS tg_wcc over USES_DEVICE)",
+        "entity_ids": [
+          "C11923-K2"
+        ]
+      },
+      {
+        "claim": "Fraud episode: 1 transaction(s) on C11923-K2 from 2016-12-29 03:27 to 2016-12-29 03:27, $131.30 in total ($131.30)",
+        "source": "graph",
+        "ref": "query:fingerprint_history / card_window",
+        "entity_ids": [
+          "3583368"
+        ]
+      },
+      {
+        "claim": "Linked card C05595-K1 already has confirmed-fraud case(s) CC-1497",
+        "source": "graph",
+        "ref": "query:card_cases(card=C05595-K1)",
+        "entity_ids": [
+          "C05595-K1",
+          "CC-1497"
+        ]
+      },
+      {
+        "claim": "Customer report: 'I never made this $131.30 purchase. Please check my card.' Refers to 3583368.",
+        "source": "customer",
+        "ref": "case_pack:HHG-011",
+        "entity_ids": [
+          "3583368"
+        ]
+      },
+      {
+        "claim": "Assumed response to analyst_info: Analyst confirms the shared device profile links 3 other cards with the same activity in the window and agrees it is one coordinated scheme",
+        "source": "external",
+        "ref": "evidence_request:1",
+        "entity_ids": []
+      },
+      {
+        "claim": "Retrieved guidance applied: R2 Customer denies the transaction. Recommend BLOCK_CARD and CREATE_CASE. Add FILE_REPORT if exposure exceeds $1,000 or the case connects to a shared device profile or another card's fraud.",
+        "source": "document",
+        "ref": "Fraud Policy R2",
+        "entity_ids": []
+      },
+      {
+        "claim": "Retrieved guidance applied: Card-not-present fraud from a new device: as card-not-present fraud, with the identity record marking the device as New for this account, sometimes behind a proxy. Stronger than plain CNP but not proof, since people buy new phones.",
+        "source": "document",
+        "ref": "card_not_present_new_device",
+        "entity_ids": []
+      },
+      {
+        "claim": "Retrieved guidance applied: R6 Shared origin. When several cards show fraud from the same device profile, billing region or recipient email in one window, name the shared element, recommend CREATE_CASE and FILE_REPORT, and MONITOR_CONNECTED_CARDS for every card that shares it.",
+        "source": "document",
+        "ref": "Fraud Policy R6",
+        "entity_ids": []
+      }
+    ],
+    "similar_prior_cases": [
+      "CC-3039",
+      "CC-3905",
+      "CC-2198",
+      "CC-4936"
+    ],
+    "summary": "The customer reported a $131.30 online purchase they did not make, and the investigation determined the transaction was fraudulent. Evidence showed the device profile used for the purchase was new for this card and had been shared with three other cards, indicating coordinated fraud, while one finding of a similar past purchase pointed to a genuine customer but was outweighed by the fraud signals. An analyst was consulted and confirmed the shared device profile links the other cards in a coordinated scheme. The case was closed as fraud, the card was blocked, a case was created, the connected cards will be monitored, and a report was filed. The next step is ongoing monitoring of the linked cards for any further suspicious activity.",
+    "written_to_graph": true,
+    "graph_case_id": "INV-HHG-011"
+  },
+  "evidence_requests": [
+    {
+      "type": "analyst_info",
+      "asked_after_step": 5,
+      "assumed_response": "Analyst confirms the shared device profile links 3 other cards with the same activity in the window and agrees it is one coordinated scheme"
+    }
+  ],
+  "next_best_actions": {
+    "initial": [
+      {
+        "action": "BLOCK_CARD",
+        "route": "L1",
+        "reason": "R2: card compromised; exposure $131.30 \u2264 $2,500"
+      },
+      {
+        "action": "CREATE_CASE",
+        "route": "auto",
+        "reason": "R2 / section 3a: fraud case with evidence written to the graph"
+      }
+    ],
+    "final": [
+      {
+        "action": "BLOCK_CARD",
+        "route": "L1",
+        "reason": "R2: card compromised; exposure $131.30 \u2264 $2,500"
+      },
+      {
+        "action": "CREATE_CASE",
+        "route": "auto",
+        "reason": "R2 / section 3a: fraud case with evidence written to the graph"
+      },
+      {
+        "action": "MONITOR_CONNECTED_CARDS",
+        "route": "auto",
+        "reason": "R6: 3 other card(s) share the device profile"
+      },
+      {
+        "action": "FILE_REPORT",
+        "route": "L2",
+        "reason": "R6/R9 and section 3a: coordinated activity across customers"
+      }
+    ],
+    "what_changed": "Analyst confirms the shared device profile links 3 other cards with the same activity in the window and agrees it is one coordinated scheme. As a result the probability moved from 0.85 to 0.90; added MONITOR_CONNECTED_CARDS (R6), FILE_REPORT (R6)."
+  },
+  "sar": {
+    "file": true,
+    "reason": "File: fraud strongly suspected and the activity connects to a shared device profile / other customers' cards (section 3a, R2/R6/R9).",
+    "narrative": "On 2016-12-29 at 03:27, card C11923-K2 held by customer C11923 was used for 1 online transaction(s) totalling $131.30 (transaction IDs 3583368). The activity came to the bank's attention through a customer report on 2016-12-29 06:27:44, referring to transaction 3583368 for $131.30. Online activity used the device profile SM-G610F Build/NRD90M | ? | chrome 66.0 for android | ?. The investigation identified the activity as card not present new device. Shared origin: this device profile touched 4 different cards within \u00b115 days \u2014 a rare profile (only 4 cards in its lifetime) where 3 other cards show the same email domain and an amount within 10% of $131.30. Device profile marked New for this account and never seen on the card before. The same scheme links to other cards, which have been placed under monitoring: C03938-K1, C05595-K1, C05678-K1. The cardholder reported the activity as unauthorised. The card has been recommended for blocking and reissue, and the total suspicious amount reported is $131.30.",
+    "subjects": [
+      "C11923",
+      "C11923-K2",
+      "C03938-K1",
+      "C05595-K1",
+      "C05678-K1"
+    ],
+    "total_amount_usd": 131.3,
+    "activity_dates": [
+      "2016-12-29",
+      "2016-12-29"
+    ]
+  },
+  "stop_reason": "The shared element and the linked cards are identified and the analyst confirmed the scheme; further steps would not change the actions.",
+  "tool_calls": 15,
+  "tokens": 2643,
+  "latency_s": 5.62
+}

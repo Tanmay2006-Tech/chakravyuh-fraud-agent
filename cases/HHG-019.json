@@ -1,0 +1,197 @@
+{
+  "case_id": "HHG-019",
+  "case": {
+    "status": "closed_fraud",
+    "verdict": "fraud",
+    "fraud_probability": 0.9,
+    "pattern": "card_not_present_new_device",
+    "pattern_description": "",
+    "affected_txn_ids": [
+      "3503878"
+    ],
+    "first_suspicious_txn_id": "3503878",
+    "connected_card_ids": [
+      "C01104-K2",
+      "C01983-K1",
+      "C06224-K2",
+      "C11309-K1"
+    ],
+    "connected_device_profiles": [
+      "Windows | other | chrome 61.0 | 1280x720"
+    ],
+    "exposure_usd": 99.92,
+    "evidence": [
+      {
+        "claim": "Shared origin: this device profile (Windows | other | chrome 61.0 | 1280x720) touched 5 different cards within \u00b115 days \u2014 a rare profile (only 5 cards in its lifetime) where 4 other cards show the same email domain and an amount within 10% of $99.92",
+        "source": "graph",
+        "ref": "query:device_neighbors(dev=Df194716e24, \u00b115d)",
+        "entity_ids": [
+          "C01104-K2",
+          "C01983-K1",
+          "C06224-K2",
+          "C11309-K1"
+        ]
+      },
+      {
+        "claim": "Device profile marked New for this account (Windows | other | chrome 61.0 | 1280x720) and never seen on the card before \u2014 bank memory: less alarming than it looks: 8% of 577 past model alerts with this signal were fraud (vs 63% without), so here it counts towards a genuine customer",
+        "source": "graph",
+        "ref": "query:txn_context(t=3503878) + calibration:closed_cases",
+        "entity_ids": []
+      },
+      {
+        "claim": "Bank model scored the transaction 0.90 (treated as a weak input: above 0.7 most alerts are legitimate)",
+        "source": "external",
+        "ref": "case_pack:HHG-019",
+        "entity_ids": [
+          "3503878"
+        ]
+      },
+      {
+        "claim": "TigerGraph graph algorithm (GDS weakly connected components, tg_wcc) over the Nov\u2013Dec graph of cards-in-use and rare device profiles puts this payment's device in a connected component of 5 cards (5 card fingerprints, 1 device profile). Context only: it does not change the fraud probability",
+        "source": "graph",
+        "ref": "query:ring_component (GDS tg_wcc over USES_DEVICE)",
+        "entity_ids": [
+          "C07987-K2",
+          "C01104-K2",
+          "C01983-K1",
+          "C06224-K2",
+          "C11309-K1"
+        ]
+      },
+      {
+        "claim": "Fraud episode: 1 transaction(s) on C07987-K2 from 2016-12-01 17:28 to 2016-12-01 17:28, $99.92 in total ($99.92)",
+        "source": "graph",
+        "ref": "query:fingerprint_history / card_window",
+        "entity_ids": [
+          "3503878"
+        ]
+      },
+      {
+        "claim": "Linked card C01104-K2 already has confirmed-fraud case(s) CC-2375, CC-2165, CC-0358, CC-2828, CC-0639, CC-5037",
+        "source": "graph",
+        "ref": "query:card_cases(card=C01104-K2)",
+        "entity_ids": [
+          "C01104-K2",
+          "CC-2375",
+          "CC-2165",
+          "CC-0358",
+          "CC-2828",
+          "CC-0639",
+          "CC-5037"
+        ]
+      },
+      {
+        "claim": "Linked card C01983-K1 already has confirmed-fraud case(s) CC-3990, CC-0277, CC-0919",
+        "source": "graph",
+        "ref": "query:card_cases(card=C01983-K1)",
+        "entity_ids": [
+          "C01983-K1",
+          "CC-3990",
+          "CC-0277",
+          "CC-0919"
+        ]
+      },
+      {
+        "claim": "Assumed response to analyst_info: Analyst confirms the shared device profile links 4 other cards with the same activity in the window and agrees it is one coordinated scheme",
+        "source": "external",
+        "ref": "evidence_request:1",
+        "entity_ids": []
+      },
+      {
+        "claim": "Retrieved guidance applied: R6 Shared origin. When several cards show fraud from the same device profile, billing region or recipient email in one window, name the shared element, recommend CREATE_CASE and FILE_REPORT, and MONITOR_CONNECTED_CARDS for every card that shares it.",
+        "source": "document",
+        "ref": "Fraud Policy R6",
+        "entity_ids": []
+      },
+      {
+        "claim": "Retrieved guidance applied: Card-not-present fraud from a new device: as card-not-present fraud, with the identity record marking the device as New for this account, sometimes behind a proxy. Stronger than plain CNP but not proof, since people buy new phones.",
+        "source": "document",
+        "ref": "card_not_present_new_device",
+        "entity_ids": []
+      }
+    ],
+    "similar_prior_cases": [
+      "CC-4305",
+      "CC-4724"
+    ],
+    "summary": "The transaction of $99.92 made online on 2016-12-01 was flagged by a real-time model with a score of 0.90 and was determined to be fraudulent. The investigation found a shared device profile that had touched five cards in a \u00b115-day window, linking four other cards with the same email domain and similar amounts, which points to fraud. An analyst was consulted as requested and confirmed the coordinated scheme, supporting the fraud finding. The case was closed as fraud and the card was blocked, the transaction was declined, and the connected cards will be monitored and reported. The exposure was $99.92, which is below the $2,500 threshold for filing a report.",
+    "written_to_graph": true,
+    "graph_case_id": "INV-HHG-019"
+  },
+  "evidence_requests": [
+    {
+      "type": "analyst_info",
+      "asked_after_step": 5,
+      "assumed_response": "Analyst confirms the shared device profile links 4 other cards with the same activity in the window and agrees it is one coordinated scheme"
+    }
+  ],
+  "next_best_actions": {
+    "initial": [
+      {
+        "action": "DECLINE_TRANSACTION",
+        "route": "L1",
+        "reason": "R6: stop pending authorizations on the compromised card"
+      },
+      {
+        "action": "BLOCK_CARD",
+        "route": "L1",
+        "reason": "R6: card compromised; exposure $99.92 \u2264 $2,500"
+      },
+      {
+        "action": "CREATE_CASE",
+        "route": "auto",
+        "reason": "R6 / section 3a: fraud case with evidence written to the graph"
+      }
+    ],
+    "final": [
+      {
+        "action": "DECLINE_TRANSACTION",
+        "route": "L1",
+        "reason": "R6: stop pending authorizations on the compromised card"
+      },
+      {
+        "action": "BLOCK_CARD",
+        "route": "L1",
+        "reason": "R6: card compromised; exposure $99.92 \u2264 $2,500"
+      },
+      {
+        "action": "CREATE_CASE",
+        "route": "auto",
+        "reason": "R6 / section 3a: fraud case with evidence written to the graph"
+      },
+      {
+        "action": "MONITOR_CONNECTED_CARDS",
+        "route": "auto",
+        "reason": "R6: 4 other card(s) share the device profile"
+      },
+      {
+        "action": "FILE_REPORT",
+        "route": "L2",
+        "reason": "R6/R9 and section 3a: coordinated activity across customers"
+      }
+    ],
+    "what_changed": "Analyst confirms the shared device profile links 4 other cards with the same activity in the window and agrees it is one coordinated scheme. As a result the probability moved from 0.77 to 0.90; added MONITOR_CONNECTED_CARDS (R6), FILE_REPORT (R6)."
+  },
+  "sar": {
+    "file": true,
+    "reason": "File: fraud strongly suspected and the activity connects to a shared device profile / other customers' cards (section 3a, R2/R6/R9).",
+    "narrative": "On December 1, 2016, the cardholder C07987 used card C07987-K2 for an online purchase of $99.92 (transaction 3503878). The transaction was scored 0.90 by the bank\u2019s model, a level that typically indicates a weak input but still triggered review. The device profile used (Windows | other | chrome 61.0 | 1280x720) had been seen on five different cards within a \u00b115-day window, a rare pattern, and four other cards (C01104-K2, C01983-K1, C06224-K2, C11309-K1) shared the same email domain and amounts within 10% of $99.92, suggesting coordinated activity. An analyst was consulted after the request for analyst information and confirmed that the shared device profile links the four other cards in a coordinated scheme. Based on policy R6, the shared origin and the exposure of $99.92 (\u2264 $2,500) warranted filing a report and monitoring the connected cards. The case was closed as fraud, the card was blocked, and the transaction was declined. The linked cards involved are C07987-K2, C01104-K2, C01983-K1, C06224-K2, and C11309-K1.",
+    "subjects": [
+      "C07987",
+      "C07987-K2",
+      "C01104-K2",
+      "C01983-K1",
+      "C06224-K2",
+      "C11309-K1"
+    ],
+    "total_amount_usd": 99.92,
+    "activity_dates": [
+      "2016-12-01",
+      "2016-12-01"
+    ]
+  },
+  "stop_reason": "The shared element and the linked cards are identified and the analyst confirmed the scheme; further steps would not change the actions.",
+  "tool_calls": 15,
+  "tokens": 2666,
+  "latency_s": 6.69
+}

@@ -1,0 +1,31 @@
+USE GRAPH FraudGraph
+CREATE LOADING JOB load_entities FOR GRAPH FraudGraph {
+  DEFINE FILENAME customers;
+  DEFINE FILENAME cards;
+  DEFINE FILENAME devices;
+  LOAD customers TO VERTEX Customer VALUES ($0) USING SEPARATOR=",", HEADER="true", EOL="\n", QUOTE="double";
+  LOAD cards TO VERTEX Card VALUES ($0, $2, $3),
+             TO EDGE OWNS VALUES ($1, $0) USING SEPARATOR=",", HEADER="true", EOL="\n", QUOTE="double";
+  LOAD devices TO VERTEX DeviceProfile VALUES ($0, $1, $2, _) USING SEPARATOR=",", HEADER="true", EOL="\n", QUOTE="double";
+}
+CREATE LOADING JOB load_txns FOR GRAPH FraudGraph {
+  DEFINE FILENAME f;
+  LOAD f TO VERTEX Txn VALUES ($0, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16, $17, $18),
+    TO EDGE MADE VALUES ($1, $0),
+    TO EDGE USED_FINGERPRINT VALUES ($0, $2),
+    TO EDGE BILLED_IN VALUES ($0, $8),
+    TO EDGE FROM_DEVICE VALUES ($0, $19) WHERE $19 != "",
+    TO EDGE PURCHASER_EMAIL VALUES ($0, $11) WHERE $11 != ""
+  USING SEPARATOR=",", HEADER="true", EOL="\n", QUOTE="double";
+}
+CREATE LOADING JOB load_cases FOR GRAPH FraudGraph {
+  DEFINE FILENAME cases;
+  DEFINE FILENAME involves;
+  DEFINE FILENAME connected;
+  LOAD cases TO VERTEX ClosedCase VALUES ($0, $1, $2, $3, $4, $5, $6, $9, $10, $12, $13, $14),
+             TO EDGE ON_CARD VALUES ($0 ClosedCase, $2 Card),
+             TO EDGE HAS_PATTERN VALUES ($0 ClosedCase, $6 FraudPattern)
+    USING SEPARATOR=",", HEADER="true", EOL="\n", QUOTE="double";
+  LOAD involves TO EDGE INVOLVES VALUES ($0 ClosedCase, $1 Txn) USING SEPARATOR=",", HEADER="true", EOL="\n";
+  LOAD connected TO EDGE CONNECTED_TO VALUES ($0 ClosedCase, $1 Card) USING SEPARATOR=",", HEADER="true", EOL="\n";
+}

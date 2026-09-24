@@ -1,0 +1,110 @@
+{
+  "case_id": "HHG-010",
+  "case": {
+    "status": "closed_legitimate",
+    "verdict": "legitimate",
+    "fraud_probability": 0.04,
+    "pattern": "none",
+    "pattern_description": "",
+    "affected_txn_ids": [],
+    "first_suspicious_txn_id": "",
+    "connected_card_ids": [],
+    "connected_device_profiles": [],
+    "exposure_usd": 0.0,
+    "evidence": [
+      {
+        "claim": "Device profile marked New for this account (Windows | Windows 10 | edge 16.0 | 1366x768) and never seen on the card before \u2014 bank memory: less alarming than it looks: 8% of 577 past model alerts with this signal were fraud (vs 63% without), so here it counts towards a genuine customer",
+        "source": "graph",
+        "ref": "query:txn_context(t=3506725) + calibration:closed_cases",
+        "entity_ids": []
+      },
+      {
+        "claim": "Purchaser email domain is anonymous.com \u2014 bank memory: less alarming than it looks: 11% of 131 past model alerts with this signal were fraud (vs 35% without), so here it counts towards a genuine customer",
+        "source": "graph",
+        "ref": "query:txn_context(t=3506725) + calibration:closed_cases",
+        "entity_ids": [
+          "3506725"
+        ]
+      },
+      {
+        "claim": "Bank model scored the transaction 0.90 (treated as a weak input: above 0.7 most alerts are legitimate)",
+        "source": "external",
+        "ref": "case_pack:HHG-010",
+        "entity_ids": [
+          "3506725"
+        ]
+      },
+      {
+        "claim": "$1,000.03 is far outside this card's history (33 prior transactions, mean $131.25, max $670.04) \u2014 bank memory: less alarming than it looks: 17% of 54 past model alerts with this signal were fraud (vs 32% without), so here it counts for little",
+        "source": "graph",
+        "ref": "query:card_profile(card=C10434-K1) + calibration:closed_cases",
+        "entity_ids": [
+          "3506725",
+          "C10434-K1"
+        ]
+      },
+      {
+        "claim": "Assumed response to step_up_auth: Customer passes the one-time passcode on their registered phone and confirms the purchase from a new device",
+        "source": "customer",
+        "ref": "evidence_request:1",
+        "entity_ids": []
+      },
+      {
+        "claim": "Retrieved guidance applied: Card-not-present fraud: the card number is used online without the card, with amounts and products that do not fit the cardholder's history, often a burst of two to four within 48 hours. One unusual online purchase alone is ambiguous and should be verified.",
+        "source": "document",
+        "ref": "card_not_present_fraud",
+        "entity_ids": []
+      }
+    ],
+    "similar_prior_cases": [],
+    "summary": "The transaction of $1,000.03 was reviewed after the real-time model flagged it with a high score, but the investigation concluded it was legitimate and the case was closed as legitimate. Fraud probability was low at 4 % and most evidence pointed to a genuine customer, including a new device profile and an anonymous email domain that historically indicate genuine activity. The model\u2019s own score was treated as a weak input because scores above 0.7 are usually legitimate. The customer successfully completed step-up authentication, confirming the purchase. The transaction was allowed and the case was closed with no fraud finding.",
+    "written_to_graph": true,
+    "graph_case_id": "INV-HHG-010"
+  },
+  "evidence_requests": [
+    {
+      "type": "step_up_auth",
+      "asked_after_step": 5,
+      "assumed_response": "Customer passes the one-time passcode on their registered phone and confirms the purchase from a new device"
+    }
+  ],
+  "next_best_actions": {
+    "initial": [
+      {
+        "action": "STEP_UP_AUTH",
+        "route": "auto",
+        "reason": "R1: probability 0.13 is below 0.70 and rests on a single signal \u2014 verify before any block"
+      },
+      {
+        "action": "CREATE_CASE",
+        "route": "auto",
+        "reason": "Section 3a: a case is opened whenever evidence is requested"
+      }
+    ],
+    "final": [
+      {
+        "action": "ALLOW_TRANSACTION",
+        "route": "auto",
+        "reason": "R3: customer confirmed"
+      },
+      {
+        "action": "CLOSE_NO_FRAUD",
+        "route": "auto",
+        "reason": "R3: customer confirmed; confirmation noted in the case file"
+      }
+    ],
+    "what_changed": "Customer passes the one-time passcode on their registered phone and confirms the purchase from a new device. As a result the probability moved from 0.13 to 0.04; added ALLOW_TRANSACTION (R3), CLOSE_NO_FRAUD (R3); no longer needed: CREATE_CASE, STEP_UP_AUTH."
+  },
+  "sar": {
+    "file": false,
+    "reason": "No report: activity is not confirmed or strongly suspected fraud (section 3a).",
+    "narrative": "",
+    "subjects": [],
+    "total_amount_usd": 0,
+    "activity_dates": []
+  },
+  "stop_reason": "The customer's confirmation settled the question (section 6).",
+  "tool_calls": 12,
+  "tokens": 1582,
+  "latency_s": 3.54
+}

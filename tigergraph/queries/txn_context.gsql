@@ -1,0 +1,10 @@
+CREATE OR REPLACE QUERY txn_context(VERTEX<Txn> t) FOR GRAPH FraudGraph {
+  /* The flagged transaction with its card, customer, fingerprint and device. */
+  SetAccum<STRING> @@card, @@customer, @@fingerprint, @@device, @@device_profile;
+  S = {t};
+  C  = SELECT c FROM S:s -(MADE_BY>)- Card:c ACCUM @@card += c.id;
+  CU = SELECT u FROM C:c -(OWNED_BY>)- Customer:u ACCUM @@customer += u.id;
+  F  = SELECT f FROM S:s -(USED_FINGERPRINT>)- Fingerprint:f ACCUM @@fingerprint += f.id;
+  D  = SELECT d FROM S:s -(FROM_DEVICE>)- DeviceProfile:d ACCUM @@device += d.id, @@device_profile += d.profile;
+  PRINT S AS txn, @@card AS card, @@customer AS customer, @@fingerprint AS fingerprint, @@device AS device, @@device_profile AS device_profile;
+}

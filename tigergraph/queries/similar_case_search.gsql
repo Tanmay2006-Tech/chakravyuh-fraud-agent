@@ -1,0 +1,7 @@
+CREATE OR REPLACE QUERY similar_case_search(LIST<FLOAT> query_vec, INT k) FOR GRAPH FraudGraph SYNTAX v3 {
+  /* Case memory, semantic side: closed cases whose analyst narrative is closest to the current evidence. */
+  MapAccum<VERTEX, FLOAT> @@distances;
+  v = vectorSearch({ClosedCase.embedding}, query_vec, k, { distance_map: @@distances });
+  PRINT v;
+  PRINT @@distances AS distances;
+}

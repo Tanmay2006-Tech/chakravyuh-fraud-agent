@@ -1,0 +1,8 @@
+CREATE OR REPLACE QUERY fingerprint_history(VERTEX<Fingerprint> fp) FOR GRAPH FraudGraph {
+  /* All activity of one card fingerprint, and every closed case that ever touched it (case memory). */
+  F = {fp};
+  T = SELECT t FROM F:f -(FINGERPRINT_OF>)- Txn:t;
+  C = SELECT c FROM T:t -(INVOLVED_IN>)- ClosedCase:c;
+  I = SELECT c FROM T:t -(INVOLVED_IN>)- InvestigationCase:c;
+  PRINT T; PRINT C; PRINT I;
+}

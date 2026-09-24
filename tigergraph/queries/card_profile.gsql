@@ -1,0 +1,17 @@
+CREATE OR REPLACE QUERY card_profile(VERTEX<Card> card, DATETIME before_ts) FOR GRAPH FraudGraph {
+  /* Behavioural baseline of a card strictly before a point in time. */
+  SumAccum<INT> @@n; SumAccum<DOUBLE> @@amount_total, @@sumsq; MaxAccum<DOUBLE> @@max_amount;
+  MapAccum<STRING, SumAccum<INT>> @@regions, @@products, @@region_days_n;
+  MapAccum<STRING, SetAccum<INT>> @@region_days;
+  SetAccum<STRING> @@devices;
+  S = {card};
+  T = SELECT t FROM S:c -(MADE>)- Txn:t
+      WHERE t.ts < before_ts
+      ACCUM @@n += 1, @@amount_total += t.amount, @@sumsq += t.amount * t.amount, @@max_amount += t.amount,
+            @@regions += (t.region -> 1), @@products += (t.product -> 1),
+            @@region_days += (t.region -> datetime_to_epoch(t.ts) / 86400);
+  D = SELECT d FROM T:t -(FROM_DEVICE>)- DeviceProfile:d ACCUM @@devices += d.id;
+  FOREACH (r, days) IN @@region_days DO @@region_days_n += (r -> days.size()); END;
+  PRINT @@n AS n, @@amount_total AS amount_total, @@sumsq AS sumsq, @@max_amount AS max_amount,
+        @@regions AS regions, @@products AS products, @@region_days_n AS region_days, @@devices AS devices;
+}
