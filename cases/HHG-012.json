@@ -51,7 +51,7 @@
       }
     ],
     "similar_prior_cases": [],
-    "summary": "The transaction of $30.91 was reviewed after a real-time model flagged it with a score of 0.55. Evidence showed the card had made the same purchase on two earlier dates and that billing region 494 is routine for this card, while the model score was a weak input. Customer validation was requested and the customer confirmed they made the transaction. Based on the low fraud probability and the confirmation, the transaction was allowed and the case was closed as legitimate.",
+    "summary": "A transaction of $30.91 on card C05876-K2 was flagged by a real-time model with a score of 0.55. The evidence showed the same amount had been paid on two earlier days and the billing region is routine for this card, with the model signal being weak. The customer was asked to validate the purchase and confirmed they made it. Because the probability was low and the customer confirmed, the transaction was allowed and the case was closed as legitimate.",
     "written_to_graph": true,
     "graph_case_id": "INV-HHG-012"
   },
@@ -99,6 +99,6 @@
   },
   "stop_reason": "The customer's confirmation settled the question (section 6).",
   "tool_calls": 10,
-  "tokens": 1510,
-  "latency_s": 3.25
+  "tokens": 1452,
+  "latency_s": 3.37
 }

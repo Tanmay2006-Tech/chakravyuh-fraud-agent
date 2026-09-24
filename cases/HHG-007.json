@@ -18,13 +18,13 @@
     "exposure_usd": 372.85,
     "evidence": [
       {
-        "claim": "The same card fingerprint (card, billing region, account start, email) appears in 3 confirmed-fraud closed case(s): CC-2565, CC-2834, CC-5521 (account_takeover, out_of_region_use) \u2014 bank memory: 100% of 62 past model alerts with this signal were fraud (vs 27% without)",
+        "claim": "The same card fingerprint (card, billing region, account start, email) appears in 3 confirmed-fraud closed case(s): CC-2565, CC-5521, CC-2834 (account_takeover, out_of_region_use) \u2014 bank memory: 100% of 62 past model alerts with this signal were fraud (vs 27% without)",
         "source": "graph",
         "ref": "query:fingerprint_history(fp=F:C09933-K2|264|50|gmail.com) + calibration:closed_cases",
         "entity_ids": [
           "CC-2565",
-          "CC-2834",
-          "CC-5521"
+          "CC-5521",
+          "CC-2834"
         ]
       },
       {
@@ -61,12 +61,12 @@
     ],
     "similar_prior_cases": [
       "CC-2565",
-      "CC-2834",
       "CC-5521",
+      "CC-2834",
       "CC-1524",
       "CC-1228"
     ],
-    "summary": "The investigation found that the card was used in multiple in-person purchases and the same card fingerprint appears in three confirmed-fraud cases, and the bank model gave the latest transaction a score of 0.87, which is considered suspicious. The customer said they did not make the transaction and still has the card, but the evidence points to fraud, so the case was closed as fraud. The pending transaction was declined, the card was blocked, and a case was created. Because the exposure was $372.85, which is below the $2,500 threshold, the actions followed policy R2. The case remains closed as fraud.",
+    "summary": "The real-time model flagged an in-person purchase of $111.92 on card C09933-K2 and the investigation determined the activity was fraudulent, confirming an account-takeover pattern. Evidence showed the same card fingerprint had appeared in three confirmed-fraud cases and the model\u2019s risk score of 0.87 was considered indicative of fraud. The customer was asked to validate the transaction and said they did not make it and still have the card. As a result the transaction was declined, the card was blocked, and the case was closed as fraud.",
     "written_to_graph": true,
     "graph_case_id": "INV-HHG-007"
   },
@@ -124,6 +124,6 @@
   },
   "stop_reason": "The customer's denial settled the question (section 6).",
   "tool_calls": 10,
-  "tokens": 1771,
-  "latency_s": 3.13
+  "tokens": 1725,
+  "latency_s": 3.27
 }

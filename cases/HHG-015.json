@@ -73,7 +73,7 @@
       }
     ],
     "similar_prior_cases": [],
-    "summary": "A $599.94 online purchase triggered a real-time model alert with a score of 0.77. The investigation requested step-up authentication; the customer entered the one-time passcode on their registered phone and confirmed the purchase from a new device. The evidence showed the amount was far above the card\u2019s typical spend but the device profile was new, the email domain was anonymous, and the model score was treated as a weak input, all of which point to a genuine customer. The case was closed as legitimate and the transaction was allowed.",
+    "summary": "A $599.94 online purchase was flagged by a real-time model with a score of 0.77. The investigation requested step-up authentication, and the customer successfully passed a one-time passcode on their registered phone and confirmed the purchase from a new device. The evidence showed the amount was far above the card\u2019s typical spend but the device profile, email domain and model score all pointed to a genuine customer, with the model indicating most alerts above 0.7 are legitimate. The case was closed as legitimate and the transaction was allowed.",
     "written_to_graph": true,
     "graph_case_id": "INV-HHG-015"
   },
@@ -121,6 +121,6 @@
   },
   "stop_reason": "The customer's confirmation settled the question (section 6).",
   "tool_calls": 12,
-  "tokens": 1599,
-  "latency_s": 3.26
+  "tokens": 1603,
+  "latency_s": 3.59
 }

@@ -81,7 +81,7 @@
     "similar_prior_cases": [
       "CC-0502"
     ],
-    "summary": "The transaction of $100.09 was reviewed after the real-time model flagged it with a score of 0.57. Evidence showed the cardholder had made several similar $100 purchases on the same product and email domain, and the device profile was known, which pointed to a genuine customer. A burst of three purchases within two hours and a device-profile signal that historically correlated with fraud were noted, but the overall probability was low (5%) and the model score was considered a weak adverse input. Because the legitimate-behaviour evidence outweighed the fraud signals, the transaction was allowed and the case was closed as legitimate.",
+    "summary": "The transaction of $100.09 made online was reviewed and determined to be legitimate. Evidence showed the cardholder had made similar purchases before and the same amount was paid on several earlier dates, indicating a genuine customer. Although there was a burst of three $100 purchases within two hours and a device profile that historically correlated with fraud, the overall probability was low (5%) and the model score was weak. The case was closed as legitimate and the transaction was allowed to proceed. No analyst was consulted and the case required no further action.",
     "written_to_graph": true,
     "graph_case_id": "INV-HHG-017"
   },
@@ -123,6 +123,6 @@
   },
   "stop_reason": "Probability at or below 0.15 on two or more independent pieces of legitimate-behaviour evidence (section 6); verification would not change the decision.",
   "tool_calls": 12,
-  "tokens": 1631,
-  "latency_s": 3.55
+  "tokens": 1628,
+  "latency_s": 3.76
 }

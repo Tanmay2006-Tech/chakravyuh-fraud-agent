@@ -46,7 +46,7 @@
       }
     ],
     "similar_prior_cases": [],
-    "summary": "A transaction of $35.66 made online was flagged by a real-time model with a score of 0.76. The evidence showed a new device profile that historically appears in only 8% of alerts that turn out to be fraud, and the model score itself is considered a weak input because scores above 0.7 are usually legitimate. The bank asked for step-up authentication; the customer entered the one-time passcode on their registered phone and confirmed the purchase. Because the fraud probability was low and the only signal was weak, the transaction was allowed and the case was closed as legitimate.",
+    "summary": "A transaction of $35.66 was flagged by a real-time model with a score of 0.76. The device profile was new for the account, but only 8% of past alerts with that signal were fraud, so it pointed to a genuine customer. The bank model\u2019s score was considered a weak input because scores above 0.7 are usually legitimate, and the customer confirmed the purchase through a one-time passcode on their registered phone. The case was closed as legitimate and the transaction was allowed. No further action is required.",
     "written_to_graph": true,
     "graph_case_id": "INV-HHG-013"
   },
@@ -94,6 +94,6 @@
   },
   "stop_reason": "The customer's confirmation settled the question (section 6).",
   "tool_calls": 12,
-  "tokens": 1450,
-  "latency_s": 3.99
+  "tokens": 1469,
+  "latency_s": 4.15
 }

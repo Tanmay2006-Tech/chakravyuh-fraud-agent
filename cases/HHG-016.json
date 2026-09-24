@@ -55,7 +55,7 @@
       "CC-5217",
       "CC-2879"
     ],
-    "summary": "The customer reported a $59.67 online purchase they did not make. Investigation found the transaction was made from a new device profile that had never been seen on the card before, which points to fraud. The case was closed as fraud and the card was blocked. No further action was required because the exposure was below $2,500.",
+    "summary": "The customer reported a $59.67 online purchase they did not make on card C09988-K1. Investigation found the transaction originated from a new device profile that had never been seen on the account, which points to fraud. The case was closed as fraud and the card was blocked. No further action is required.",
     "written_to_graph": true,
     "graph_case_id": "INV-HHG-016"
   },
@@ -97,6 +97,6 @@
   },
   "stop_reason": "The customer's denial settles the question (section 6); the graph evidence is consistent with it and further steps would not change the actions.",
   "tool_calls": 12,
-  "tokens": 1299,
-  "latency_s": 3.46
+  "tokens": 1292,
+  "latency_s": 3.31
 }

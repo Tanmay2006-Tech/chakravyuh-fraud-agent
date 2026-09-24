@@ -86,9 +86,9 @@
         "entity_ids": []
       },
       {
-        "claim": "Retrieved guidance applied: R2 Customer denies the transaction. Recommend BLOCK_CARD and CREATE_CASE. Add FILE_REPORT if exposure exceeds $1,000 or the case connects to a shared device profile or another card's fraud.",
+        "claim": "Retrieved guidance applied: R6 Shared origin. When several cards show fraud from the same device profile, billing region or recipient email in one window, name the shared element, recommend CREATE_CASE and FILE_REPORT, and MONITOR_CONNECTED_CARDS for every card that shares it.",
         "source": "document",
-        "ref": "Fraud Policy R2",
+        "ref": "Fraud Policy R6",
         "entity_ids": []
       },
       {
@@ -98,19 +98,19 @@
         "entity_ids": []
       },
       {
-        "claim": "Retrieved guidance applied: R6 Shared origin. When several cards show fraud from the same device profile, billing region or recipient email in one window, name the shared element, recommend CREATE_CASE and FILE_REPORT, and MONITOR_CONNECTED_CARDS for every card that shares it.",
+        "claim": "Retrieved guidance applied: R2 Customer denies the transaction. Recommend BLOCK_CARD and CREATE_CASE. Add FILE_REPORT if exposure exceeds $1,000 or the case connects to a shared device profile or another card's fraud.",
         "source": "document",
-        "ref": "Fraud Policy R6",
+        "ref": "Fraud Policy R2",
         "entity_ids": []
       }
     ],
     "similar_prior_cases": [
       "CC-3039",
-      "CC-3905",
+      "CC-1056",
       "CC-2198",
       "CC-4936"
     ],
-    "summary": "The customer reported a $131.30 online purchase they did not make, and the investigation determined the transaction was fraudulent. Evidence showed the device profile used for the purchase was new for this card and had been shared with three other cards, indicating coordinated fraud, while one finding of a similar past purchase pointed to a genuine customer but was outweighed by the fraud signals. An analyst was consulted and confirmed the shared device profile links the other cards in a coordinated scheme. The case was closed as fraud, the card was blocked, a case was created, the connected cards will be monitored, and a report was filed. The next step is ongoing monitoring of the linked cards for any further suspicious activity.",
+    "summary": "A customer reported a $131.30 online purchase they did not make on card C11923-K2. The investigation found the same amount had been charged on three earlier dates and that the device profile used for the transaction was shared with three other cards, a rare pattern that points to coordinated fraud. An analyst confirmed the shared device profile links the cards and agreed it is a coordinated scheme. The case was closed as fraud, the card was blocked, a case was created, the connected cards are being monitored, and a report was filed. The requested analyst information was provided and incorporated into the decision.",
     "written_to_graph": true,
     "graph_case_id": "INV-HHG-011"
   },
@@ -177,6 +177,6 @@
   },
   "stop_reason": "The shared element and the linked cards are identified and the analyst confirmed the scheme; further steps would not change the actions.",
   "tool_calls": 15,
-  "tokens": 2643,
-  "latency_s": 5.62
+  "tokens": 2563,
+  "latency_s": 5.5
 }

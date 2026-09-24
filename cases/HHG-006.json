@@ -3,7 +3,7 @@
   "case": {
     "status": "escalated",
     "verdict": "fraud",
-    "fraud_probability": 0.98,
+    "fraud_probability": 0.95,
     "pattern": "undocumented",
     "pattern_description": "Authorization-threshold structuring: 4 online purchases on one card, each between $400 and $500, inside about 30 minutes, from more than one device. The amounts look chosen to stay just under a $500 authorization limit. The same run shape appears on 11 other cards in the surrounding weeks, so it is a repeated scheme across customers rather than one compromised card.",
     "affected_txn_ids": [
@@ -44,22 +44,14 @@
         ]
       },
       {
-        "claim": "An earlier Chakravyuh investigation, INV-MON-001 (undocumented, escalated), already linked this card to fraud",
-        "source": "graph",
-        "ref": "query:card_cases (InvestigationCase memory)",
-        "entity_ids": [
-          "C07297-K1"
-        ]
-      },
-      {
-        "claim": "Past alerts on this device profile were mostly cleared (CC-0026, CC-0796, CC-0846, CC-0851), e.g. customers confirming purchases from new phones",
+        "claim": "Past alerts on this device profile were mostly cleared (CC-0881, CC-1549, CC-0963, CC-1236), e.g. customers confirming purchases from new phones",
         "source": "graph",
         "ref": "query:device_neighbors(dev=D4936ab3596)",
         "entity_ids": [
-          "CC-0026",
-          "CC-0796",
-          "CC-0846",
-          "CC-0851"
+          "CC-0881",
+          "CC-1549",
+          "CC-0963",
+          "CC-1236"
         ]
       },
       {
@@ -98,31 +90,31 @@
         ]
       },
       {
-        "claim": "Linked card C00466-K1 already has confirmed-fraud case(s) CC-1035, CC-1400, CC-1568, CC-1708, CC-2680, CC-4011, CC-4272, CC-4662",
+        "claim": "Linked card C00466-K1 already has confirmed-fraud case(s) CC-4272, CC-4662, CC-2680, CC-1708, CC-1400, CC-1035, CC-4011, CC-1568",
         "source": "graph",
         "ref": "query:card_cases(card=C00466-K1)",
         "entity_ids": [
           "C00466-K1",
-          "CC-1035",
-          "CC-1400",
-          "CC-1568",
-          "CC-1708",
-          "CC-2680",
-          "CC-4011",
           "CC-4272",
-          "CC-4662"
+          "CC-4662",
+          "CC-2680",
+          "CC-1708",
+          "CC-1400",
+          "CC-1035",
+          "CC-4011",
+          "CC-1568"
         ]
       },
       {
-        "claim": "Linked card C01890-K1 already has confirmed-fraud case(s) CC-0351, CC-1608, CC-2368, CC-4983",
+        "claim": "Linked card C01890-K1 already has confirmed-fraud case(s) CC-1608, CC-4983, CC-0351, CC-2368",
         "source": "graph",
         "ref": "query:card_cases(card=C01890-K1)",
         "entity_ids": [
           "C01890-K1",
-          "CC-0351",
           "CC-1608",
-          "CC-2368",
-          "CC-4983"
+          "CC-4983",
+          "CC-0351",
+          "CC-2368"
         ]
       },
       {
@@ -147,13 +139,11 @@
       }
     ],
     "similar_prior_cases": [
-      "CC-0026",
-      "CC-0796",
-      "CC-0846",
-      "CC-3748",
-      "CC-4124"
+      "CC-0881",
+      "CC-1549",
+      "CC-0963"
     ],
-    "summary": "The customer reported a $482.12 purchase they did not make, triggering an investigation of four online purchases between $400 and $500 that occurred within 30 minutes on the same card. The evidence shows a repeated under-$500 run shape that also appears on 11 other cards within \u00b130 days, indicating a coordinated scheme, and an earlier investigation had already linked this card to fraud. The case was escalated to a fraud analyst, who confirmed the pattern and agreed it is fraudulent. The card was blocked and the case was created, with connected cards being monitored and a report filed. The analyst was consulted as requested and confirmed the findings.",
+    "summary": "The customer reported a $482.12 purchase they did not make, triggering an investigation of four online purchases between $400 and $500 on the same card within about 30 minutes. The pattern matches an undocumented coordinated scheme where similar under-$500 runs appeared on 11 other cards in the surrounding weeks, indicating fraud. The evidence points to fraud and the case was escalated to a fraud analyst after the analyst confirmed the coordinated scheme. The card was blocked, a case was created, connected cards will be monitored, and a report will be filed. The investigation stays open pending further monitoring of the linked cards.",
     "written_to_graph": true,
     "graph_case_id": "INV-HHG-006"
   },
@@ -209,12 +199,12 @@
         "reason": "R9: undocumented, coordinated pattern"
       }
     ],
-    "what_changed": "Analyst confirms the repeated under-$500 run shape links 11 other cards with the same activity in the window and agrees it is one coordinated scheme. As a result the probability stayed at 0.98; added MONITOR_CONNECTED_CARDS (R6), ESCALATE_TO_ANALYST (R9)."
+    "what_changed": "Analyst confirms the repeated under-$500 run shape links 11 other cards with the same activity in the window and agrees it is one coordinated scheme. As a result the probability stayed at 0.95; added MONITOR_CONNECTED_CARDS (R6), ESCALATE_TO_ANALYST (R9)."
   },
   "sar": {
     "file": true,
     "reason": "File: fraud strongly suspected and exposure $1,906.07 exceeds $1,000; the activity connects to a shared device profile / other customers' cards; the pattern is coordinated and undocumented (R9) (section 3a, R2/R6/R9).",
-    "narrative": "During November 21, 2016, card C07297-K1 was used for four online purchases of $478.95, $456.96, $488.04 and $482.12 within a 30-minute window, totaling $1,906.07. The transactions were made from two different device profiles, one desktop and one mobile, and the same under-$500 run shape was observed on eleven other cards (C00466-K1, C01890-K1, C02265-K1, C03633-K1, C05423-K1, C05766-K1, C05851-K1, C06881-K1, C10751-K1, C10990-K1, C12641-K2) within \u00b130 days. This pattern matches an undocumented, coordinated scheme designed to stay just under the $500 authorization limit, a known fraud technique. Past alerts on the device profile were mostly cleared as genuine, but the repeated run shape and prior investigation linking this card to fraud point to malicious activity. The total suspicious exposure is $1,906.07. The subjects involved are the customer C07297, the primary card C07297-K1, and the connected cards listed above. The affected transactions are IDs 3476602, 3476633, 3476665 and 3476682.",
+    "narrative": "On November 21, 2016, card C07297-K1 was used for four online purchases totaling $1,906.07, each between $400 and $500 and completed within 30 minutes. The transactions occurred from multiple devices, and the same under-$500 run shape was observed on eleven other cards (C00466-K1, C01890-K1, C02265-K1, C03633-K1, C05423-K1, C05766-K1, C05851-K1, C06881-K1, C10751-K1, C10990-K1, C12641-K2) within \u00b130 days, indicating a coordinated scheme. The device profiles used were known on the card, but past alerts on these profiles were mostly cleared as genuine customer activity, providing weak support for a legitimate claim. The customer C07297 denied the $482.12 purchase, and the pattern of multiple near-threshold authorizations is consistent with fraud. Because the total exposure exceeds $1,000 and the scheme involves multiple cards, the activity is deemed suspicious. The card was blocked, a case was created, and the linked cards will be monitored. The affected transaction IDs are 3476602, 3476633, 3476665, and 3476682.",
     "subjects": [
       "C07297",
       "C07297-K1",
@@ -238,6 +228,6 @@
   },
   "stop_reason": "The shared element and the linked cards are identified and the analyst confirmed the scheme; further steps would not change the actions.",
   "tool_calls": 17,
-  "tokens": 3059,
-  "latency_s": 86.61
+  "tokens": 3001,
+  "latency_s": 6.45
 }

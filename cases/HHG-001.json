@@ -56,11 +56,11 @@
     ],
     "similar_prior_cases": [
       "CC-1066",
-      "CC-2964"
+      "CC-3587"
     ],
-    "summary": "A transaction of $77.07 on card C12382-K1 was flagged by a real-time model with a score of 0.61. The investigation found multiple earlier purchases by the same cardholder, including two similar $77 purchases and a history of billing region 444, indicating genuine use. The model score was the only adverse signal and the probability of fraud was low (0.04), so the transaction was allowed. The case was closed as legitimate and no further action was taken.",
-    "written_to_graph": false,
-    "graph_case_id": ""
+    "summary": "The transaction of $77.07 on card C12382-K1 was reviewed after a model score of 0.61 triggered an alert. Evidence showed the cardholder has a history of similar purchases and the billing region is routine, with the model score being the only adverse signal. Because the fraud probability was low (0.04) and the supporting evidence pointed to a genuine customer, the transaction was allowed and the case was closed as legitimate.",
+    "written_to_graph": true,
+    "graph_case_id": "INV-HHG-001"
   },
   "evidence_requests": [],
   "next_best_actions": {
@@ -100,6 +100,6 @@
   },
   "stop_reason": "Probability at or below 0.15 on two or more independent pieces of legitimate-behaviour evidence (section 6); verification would not change the decision.",
   "tool_calls": 10,
-  "tokens": 1471,
-  "latency_s": 29.4
+  "tokens": 1472,
+  "latency_s": 3.67
 }

@@ -57,7 +57,7 @@
       }
     ],
     "similar_prior_cases": [],
-    "summary": "The transaction of $1,000.03 was reviewed after the real-time model flagged it with a high score, but the investigation concluded it was legitimate and the case was closed as legitimate. Fraud probability was low at 4 % and most evidence pointed to a genuine customer, including a new device profile and an anonymous email domain that historically indicate genuine activity. The model\u2019s own score was treated as a weak input because scores above 0.7 are usually legitimate. The customer successfully completed step-up authentication, confirming the purchase. The transaction was allowed and the case was closed with no fraud finding.",
+    "summary": "A real-time model flagged a $1,000.03 online purchase on card C10434-K1 with a high score of 0.90. The evidence showed the amount was far above the card\u2019s typical spend but the device was new, the email domain was anonymous, and the model\u2019s fraud signal was weak, all pointing to a genuine customer. The team requested step-up authentication; the customer entered the one-time passcode on their registered phone and confirmed the purchase. Because the fraud probability was only 0.04 and the confirmation was received, the transaction was allowed and the case was closed as legitimate.",
     "written_to_graph": true,
     "graph_case_id": "INV-HHG-010"
   },
@@ -105,6 +105,6 @@
   },
   "stop_reason": "The customer's confirmation settled the question (section 6).",
   "tool_calls": 12,
-  "tokens": 1582,
-  "latency_s": 3.54
+  "tokens": 1601,
+  "latency_s": 4.59
 }

@@ -61,12 +61,12 @@
       }
     ],
     "similar_prior_cases": [
-      "CC-5186",
-      "CC-4714"
+      "CC-4714",
+      "CC-2613"
     ],
-    "summary": "The customer reported a $128.33 online purchase they did not make, referencing transaction 3583227. The investigation found the amount was far outside the card's history and the device profile was new for the account, both pointing to fraud. The case was closed as fraud and the card was blocked. No further action was required.",
-    "written_to_graph": false,
-    "graph_case_id": ""
+    "summary": "The customer reported a $128.33 online purchase they did not make, which was linked to transaction 3583227 on card C08106-K1. Evidence shows the amount is far outside the card's typical history and the device profile was new for this account, both pointing to fraud. The investigation concluded the transaction was fraudulent and the case was closed as fraud. The card was blocked and a case was created for record-keeping. No further action is required beyond monitoring the account for any additional suspicious activity.",
+    "written_to_graph": true,
+    "graph_case_id": "INV-HHG-004"
   },
   "evidence_requests": [],
   "next_best_actions": {
@@ -106,6 +106,6 @@
   },
   "stop_reason": "Probability at or above 0.85 on two or more independent fraud signals (section 6); further steps would not change the actions.",
   "tool_calls": 12,
-  "tokens": 1310,
-  "latency_s": 26.52
+  "tokens": 1373,
+  "latency_s": 4.17
 }

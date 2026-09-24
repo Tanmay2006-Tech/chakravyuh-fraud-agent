@@ -15,7 +15,7 @@
       {
         "claim": "The card has paid the same $49.00 (\u00b1$0.24, product W, same region) on 2 earlier days: 2016-09-27, 2016-12-03",
         "source": "graph",
-        "ref": "query:amount_recurrence(card=C08623-K2, amount=49.0)",
+        "ref": "query:amount_recurrence(card=C08623-K2, amount=49)",
         "entity_ids": [
           "3305349",
           "3305359",
@@ -54,9 +54,9 @@
     "similar_prior_cases": [
       "CC-3327"
     ],
-    "summary": "The customer reported a $49.00 purchase they said they did not make. The investigation found two earlier identical $49.00 purchases on the same card and a long history of purchases in the billing region, indicating the charge is part of a recurring pattern. The customer was asked to validate the charge, recognized it as their own recurring purchase, and withdrew the dispute. The case was closed as legitimate and the customer was warned about the recurring charge. The case remains closed with no fraud finding.",
-    "written_to_graph": false,
-    "graph_case_id": ""
+    "summary": "The customer reported a $49.00 purchase they said they never made. The investigation found the same $49.00 charge on two earlier dates and that the billing region is routine for the card, indicating it is a genuine customer transaction. The customer confirmed the charge is part of their recurring purchase after being shown the earlier identical charges. The case was closed as legitimate and the customer was warned about the recurring charge. No further action is required.",
+    "written_to_graph": true,
+    "graph_case_id": "INV-HHG-003"
   },
   "evidence_requests": [
     {
@@ -112,6 +112,6 @@
   },
   "stop_reason": "The customer's confirmation of their own recurring charge settles the dispute (section 6).",
   "tool_calls": 10,
-  "tokens": 1428,
-  "latency_s": 24.34
+  "tokens": 1398,
+  "latency_s": 3.5
 }

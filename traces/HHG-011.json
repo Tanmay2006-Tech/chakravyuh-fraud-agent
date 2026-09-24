@@ -7,31 +7,31 @@
   "branches": [],
   "timeline": [
     {
-      "at": "2026-09-24T14:53:58",
+      "at": "2026-09-24T15:09:04",
       "stage": "opened",
       "status": "open",
       "text": "Investigation INV-HHG-011 opened from a customer report on payment 3583368"
     },
     {
-      "at": "2026-09-24T14:53:59",
+      "at": "2026-09-24T15:09:05",
       "stage": "evidence",
       "status": "investigating",
       "text": "3 findings from the graph added to the case"
     },
     {
-      "at": "2026-09-24T14:53:59",
+      "at": "2026-09-24T15:09:05",
       "stage": "memory",
       "status": "investigating",
       "text": "Memory recalled: 11 closed case(s) on the card, 0 confirmed fraud on the fingerprint, 0 earlier Chakravyuh investigation(s)"
     },
     {
-      "at": "2026-09-24T14:54:00",
+      "at": "2026-09-24T15:09:06",
       "stage": "assessed",
       "status": "investigating",
       "text": "Fraud probability 0.85; leading hypothesis card not present new device"
     },
     {
-      "at": "2026-09-24T14:54:00",
+      "at": "2026-09-24T15:09:06",
       "stage": "initial_recommendation",
       "status": "awaiting_evidence",
       "text": "Initial recommendation: BLOCK_CARD, CREATE_CASE",
@@ -43,19 +43,19 @@
       ]
     },
     {
-      "at": "2026-09-24T14:54:01",
+      "at": "2026-09-24T15:09:07",
       "stage": "evidence_requested",
       "status": "awaiting_evidence",
       "text": "Requested analyst info through a policy-approved channel"
     },
     {
-      "at": "2026-09-24T14:54:01",
+      "at": "2026-09-24T15:09:07",
       "stage": "evidence_received",
       "status": "investigating",
       "text": "Response (assumed): Analyst confirms the shared device profile links 3 other cards with the same activity in the window and agrees it is one coordinated scheme"
     },
     {
-      "at": "2026-09-24T14:54:01",
+      "at": "2026-09-24T15:09:07",
       "stage": "final_recommendation",
       "status": "decided",
       "text": "Final recommendation (fraud, probability 0.90): BLOCK_CARD, CREATE_CASE, MONITOR_CONNECTED_CARDS, FILE_REPORT",
@@ -68,7 +68,7 @@
       ]
     },
     {
-      "at": "2026-09-24T14:54:03",
+      "at": "2026-09-24T15:09:08",
       "stage": "closed",
       "status": "closed_fraud",
       "text": "Case closed as fraud, suspicious activity report prepared"
@@ -120,7 +120,7 @@
         "txn_id": "3583368"
       },
       "result": "id=3583368, ts=2016-12-29 03:27:44, amount=131.3, product=C, channel=online, risk_score=0.39",
-      "ms": 121
+      "ms": 313
     },
     {
       "kind": "step",
@@ -136,7 +136,7 @@
         "before_ts": "2016-12-29 03:27:44"
       },
       "result": "n=10306, total=406225.7300000009, sumsq=29366389.6772999, max_amount=486.52, regions=33, products=2",
-      "ms": 172
+      "ms": 282
     },
     {
       "kind": "tool",
@@ -145,8 +145,8 @@
       "args": {
         "fp": "F:C11923-K2|na|180|gmail.com"
       },
-      "result": "txns=8, closed_cases=0, agent_cases=1",
-      "ms": 169
+      "result": "txns=8, closed_cases=0, agent_cases=0",
+      "ms": 152
     },
     {
       "kind": "tool",
@@ -160,7 +160,7 @@
         "before_ts": "2016-12-29 03:27:44"
       },
       "result": "5 rows",
-      "ms": 137
+      "ms": 173
     },
     {
       "kind": "tool",
@@ -172,7 +172,7 @@
         "to_ts": "2016-12-29 04:27:44"
       },
       "result": "10 rows",
-      "ms": 123
+      "ms": 124
     },
     {
       "kind": "tool",
@@ -184,7 +184,7 @@
         "to_ts": "2017-01-13 03:27:44"
       },
       "result": "window=4, closed_cases=0, lifetime_txns=4, lifetime_cards=4, profile=None",
-      "ms": 124
+      "ms": 122
     },
     {
       "kind": "step",
@@ -214,8 +214,8 @@
       "args": {
         "card_id": "C11923-K2"
       },
-      "result": "closed_cases=11, agent_cases=1",
-      "ms": 125
+      "result": "closed_cases=11, agent_cases=0",
+      "ms": 170
     },
     {
       "kind": "tool",
@@ -226,7 +226,7 @@
         "k": 5
       },
       "result": "5 rows",
-      "ms": 56
+      "ms": 59
     },
     {
       "kind": "step",
@@ -240,8 +240,8 @@
       "args": {
         "card_id": "C03938-K1"
       },
-      "result": "closed_cases=0, agent_cases=1",
-      "ms": 137
+      "result": "closed_cases=0, agent_cases=0",
+      "ms": 158
     },
     {
       "kind": "tool",
@@ -250,8 +250,8 @@
       "args": {
         "card_id": "C05595-K1"
       },
-      "result": "closed_cases=1, agent_cases=1",
-      "ms": 154
+      "result": "closed_cases=1, agent_cases=0",
+      "ms": 123
     },
     {
       "kind": "tool",
@@ -263,7 +263,7 @@
         "to_ts": "2016-12-29 03:27:44"
       },
       "result": "95 rows",
-      "ms": 226
+      "ms": 209
     },
     {
       "kind": "step",
@@ -285,12 +285,12 @@
       "tool": "write_case",
       "backend": "tigergraph-mcp",
       "args": {
-        "case_vertex": "{'id': 'INV-HHG-011', 'hhg_case': 'HHG-011', 'opened_at': '2016-12-29 06:27:44', 'case_status': 'open', 'verdict': 'pending', 'pattern': 'card_not_present_new_device', 'probability': 0.85, 'exposure': 0.0, 'sar_filed': False, 'summary': '', 'final_actions': '', 'timeline': '[{\"at\": \"2026-09-24T14:53:58\", \"stage\": \"opened\", \"status\": \"open\", \"text\": \"Investigation INV-HHG-011 opened from a customer report on payment 3583368\"}, {\"at\": \"2026-09-24T14:53:59\", \"stage\": \"evidence\", \"status\": \"investigating\", \"text\": \"3 findings from the graph added to the case\"}, {\"at\": \"2026-09-24T14:53:59\", \"stage\": \"memory\", \"status\": \"investigating\", \"text\": \"Memory recalled: 11 closed case(s) on the card, 0 confirmed fraud on the fingerprint, 0 earlier Chakravyuh investigation(s)\"}, {\"at\": \"2026-09-24T14:54:00\", \"stage\": \"assessed\", \"status\": \"investigating\", \"text\": \"Fraud probability 0.85; leading hypothesis card not present new device\"}, {\"at\": \"2026-09-24T14:54:00\", \"stage\": \"initial_recommendation\", \"status\": \"awaiting_evidence\", \"text\": \"Initial recommendation: BLOCK_CARD, CREATE_CASE\", \"executed\": [\"CREATE_CASE\"], \"queued\": [\"BLOCK_CARD\"]}]'}",
+        "case_vertex": "{'id': 'INV-HHG-011', 'hhg_case': 'HHG-011', 'opened_at': '2016-12-29 06:27:44', 'case_status': 'open', 'verdict': 'pending', 'pattern': 'card_not_present_new_device', 'probability': 0.85, 'exposure': 0.0, 'sar_filed': False, 'summary': '', 'final_actions': '', 'timeline': '[{\"at\": \"2026-09-24T15:09:04\", \"stage\": \"opened\", \"status\": \"open\", \"text\": \"Investigation INV-HHG-011 opened from a customer report on payment 3583368\"}, {\"at\": \"2026-09-24T15:09:05\", \"stage\": \"evidence\", \"status\": \"investigating\", \"text\": \"3 findings from the graph added to the case\"}, {\"at\": \"2026-09-24T15:09:05\", \"stage\": \"memory\", \"status\": \"investigating\", \"text\": \"Memory recalled: 11 closed case(s) on the card, 0 confirmed fraud on the fingerprint, 0 earlier Chakravyuh investigation(s)\"}, {\"at\": \"2026-09-24T15:09:06\", \"stage\": \"assessed\", \"status\": \"investigating\", \"text\": \"Fraud probability 0.85; leading hypothesis card not present new device\"}, {\"at\": \"2026-09-24T15:09:06\", \"stage\": \"initial_recommendation\", \"status\": \"awaiting_evidence\", \"text\": \"Initial recommendation: BLOCK_CARD, CREATE_CASE\", \"executed\": [\"CREATE_CASE\"], \"queued\": [\"BLOCK_CARD\"]}]'}",
         "edges": "{'card_id': 'C11923-K2', 'txn_ids': ['3583368'], 'connected_cards': [], 'device_ids': [], 'similar_cases': [], 'pattern': 'card_not_present_new_device'}",
         "embedding": "None"
       },
       "result": "written=INV-HHG-011, edges=3",
-      "ms": 312
+      "ms": 343
     },
     {
       "kind": "step",
@@ -311,7 +311,7 @@
         "k": 6
       },
       "result": "6 rows",
-      "ms": 84
+      "ms": 63
     },
     {
       "kind": "step",
@@ -327,7 +327,7 @@
         "max_list": 400
       },
       "result": "comp_id=67108870, n_fingerprints=3554, n_devices=1016, fingerprints=0, devices=0",
-      "ms": 153
+      "ms": 168
     },
     {
       "kind": "step",
@@ -341,12 +341,12 @@
       "tool": "write_case",
       "backend": "tigergraph-mcp",
       "args": {
-        "case_vertex": "{'id': 'INV-HHG-011', 'hhg_case': 'HHG-011', 'opened_at': '2016-12-29 06:27:44', 'case_status': 'closed_fraud', 'verdict': 'fraud', 'pattern': 'card_not_present_new_device', 'probability': 0.9, 'exposure': 131.3, 'sar_filed': True, 'summary': 'The customer reported a $131.30 online purchase they did not make, and the investigation determined the transaction was fraudulent. Evidence showed the device profile used for the purchase was new for this card and had been shared with three other cards, indicating coordinated fraud, while one finding of a similar past purchase pointed to a genuine customer but was outweighed by the fraud signals. An analyst was consulted and confirmed the shared device profile links the other cards in a coordinated scheme. The case was closed as fraud, the card was blocked, a case was created, the connected cards will be monitored, and a report was filed. The next step is ongoing monitoring of the linked cards for any further suspicious activity.', 'final_actions': 'BLOCK_CARD|CREATE_CASE|MONITOR_CONNECTED_CARDS|FILE_REPORT', 'timeline': '[{\"at\": \"2026-09-24T14:53:58\", \"stage\": \"opened\", \"status\": \"open\", \"text\": \"Investigation INV-HHG-011 opened from a customer report on payment 3583368\"}, {\"at\": \"2026-09-24T14:53:59\", \"stage\": \"evidence\", \"status\": \"investigating\", \"text\": \"3 findings from the graph added to the case\"}, {\"at\": \"2026-09-24T14:53:59\", \"stage\": \"memory\", \"status\": \"investigating\", \"text\": \"Memory recalled: 11 closed case(s) on the card, 0 confirmed fraud on the fingerprint, 0 earlier Chakravyuh investigation(s)\"}, {\"at\": \"2026-09-24T14:54:00\", \"stage\": \"assessed\", \"status\": \"investigating\", \"text\": \"Fraud probability 0.85; leading hypothesis card not present new device\"}, {\"at\": \"2026-09-24T14:54:00\", \"stage\": \"initial_recommendation\", \"status\": \"awaiting_evidence\", \"text\": \"Initial recommendation: BLOCK_CARD, CREATE_CASE\", \"executed\": [\"CREATE_CASE\"], \"queued\": [\"BLOCK_CARD\"]}, {\"at\": \"2026-09-24T14:54:01\", \"stage\": \"evidence_requested\", \"status\": \"awaiting_evidence\", \"text\": \"Requested analyst info through a policy-approved channel\"}, {\"at\": \"2026-09-24T14:54:01\", \"stage\": \"evidence_received\", \"status\": \"investigating\", \"text\": \"Response (assumed): Analyst confirms the shared device profile links 3 other cards with the same activity in the window and agrees it is one coordinated scheme\"}, {\"at\": \"2026-09-24T14:54:01\", \"stage\": \"final_recommendation\", \"status\": \"decided\", \"text\": \"Final recommendation (fraud, probability 0.90): BLOCK_CARD, CREATE_CASE, MONITOR_CONNECTED_CARDS, FILE_REPORT\", \"executed\": [\"MONITOR_CONNECTED_CARDS\"], \"queued\": [\"BLOCK_CARD\", \"FILE_REPORT\"]}, {\"at\": \"2026-09-24T14:54:03\", \"stage\": \"closed\", \"status\": \"closed_fraud\", \"text\": \"Case closed as fraud, suspicious activity report prepared\"}]'}",
-        "edges": "{'card_id': 'C11923-K2', 'txn_ids': ['3583368'], 'connected_cards': ['C03938-K1', 'C05595-K1', 'C05678-K1'], 'device_ids': ['Da2a1154525'], 'similar_cases': ['CC-3039', 'CC-3905', 'CC-2198', 'CC-4936'], 'pattern': 'card_not_present_new_device'}",
-        "embedding": "[ 7.56185874e-03 -2.29687290e-03 -1.96275208e-02 -4.56709601e-03\n  2.55970582e-02 -3.13400738e-02  5.28730489e-02  2.36383025e-02\n  5.20668924e-03 -8.60785972e-03  5.73501997e-02  1.28051918e-02\n -2.67696455e-02  8.28140136e-03  1.16925659e-02 -1.51903415e-03\n  4.47182320e-02 -1.22588724e-01  7.36065283e-02  2.65964232e-02\n  9.86705907e-03 -3.91750894e-02 -2.34251060e-02 -1.00402823e-02\n  3.48578356e-02  7.27004409e-02 -2.15196493e-03 -8.65582973e-02\n -3.12334746e-02 -1.40177533e-01  1.40310787e-02  4.23997082e-02\n  1.05066532e-02  5.09276204e-02  3.02474350e-02 -6.97156712e-02\n -4.00811806e-02 -1.09956125e-06  5.22334538e-02 -3.50443833e-02\n -4.72233072e-02  5.10608666e-02 -1.42176263e-02  5.65640349e-03\n  2.54238341e-02  1.41243525e-02  1.00402823e-02 -9.39402729e-03\n  6.08679652e-02 -2.03337371e-02 -8.12150259e-03 -7.94161670e-03\n  1.61763821e-02  3.21129151e-02 -2.42645722e-02  6.00151755e-02\n  4.44250852e-02  4.42385375e-02  1.98706985e-03  1.38711799e-02\n  5.41788861e-02  3.72563116e-02 -7.97892660e-02 -3.44847403e-02\n -4.05342281e-02  2.58102547e-02 -2.98643438e-03 -2.91547962e-02\n  8.84237736e-02  2.87283994e-02  2.28921119e-02 -3.66167165e-02\n -3.45113911e-02 -3.23261134e-02 -6.65909937e-03  2.95811910e-02\n  4.87689897e-02  5.13007157e-02 -3.89085934e-02  4.73832041e-02\n -6.44390285e-02 -9.88704711e-03  2.78489590e-02 -9.34739038e-03\n -5.83095923e-02  8.24142620e-03  4.65837121e-02  1.17192157e-02\n  1.07798129e-02  1.77886896e-02  7.94161707e-02  3.16598713e-02\n  5.26332017e-03 -4.91687357e-02 -9.16217417e-02 -1.38978297e-02\n  9.39402729e-03 -1.40044289e-02 -6.32131398e-02  3.92923504e-01\n -1.19340781e-03  2.51040384e-02  4.34123985e-02 -6.37927698e-03\n -3.92417144e-03 -4.22131605e-02 -1.69758722e-02  3.95790004e-04\n  5.36325667e-03  3.67891073e-04 -3.08870282e-02 -6.89161792e-02\n  4.82093468e-02 -2.84352526e-02  3.61903235e-02  1.01002447e-01\n -1.25520192e-02 -2.62333197e-03  2.46509928e-02  3.19530182e-02\n -6.33197427e-02  7.44060203e-02  1.79752372e-02 -1.48343184e-04\n -3.42182443e-02 -2.38848128e-03  3.17931175e-02  1.15553193e-01\n -2.38115266e-02  6.96090758e-02 -2.84352526e-02 -3.65101174e-02\n -3.61103714e-02  3.15799192e-02  3.59504744e-02 -6.27267826e-03\n -5.22068068e-02  3.40316966e-02  8.53857100e-02  2.32019136e-03\n -3.93083394e-02 -5.35659399e-03 -4.45050374e-03 -3.59504744e-02\n -2.76624113e-02  1.03933915e-01 -1.54984789e-03  4.18933630e-02\n  2.31319591e-02 -1.91744752e-02  1.20723238e-02  4.98616286e-02\n -2.27055624e-02 -5.78831956e-02 -4.20532599e-02  3.91084654e-03\n  5.86826876e-02  3.97880338e-02 -6.07613660e-02  2.65031476e-02\n  1.96008701e-02 -2.99009886e-02 -7.84834288e-03  1.20563343e-01\n  5.91623820e-02 -1.24827296e-01  5.50583266e-02  3.40583436e-02\n -2.38515008e-02 -1.97341181e-02 -3.08337286e-02 -9.84707195e-03\n  5.96287521e-03 -2.04703165e-03 -2.24923659e-02 -5.63908108e-02\n -4.78629023e-02  3.98679823e-02 -4.86623906e-02 -2.42112726e-02\n  1.87641108e-05  4.03077062e-03 -4.70634103e-02 -1.82550587e-02\n -9.98032093e-03  1.64062355e-03 -1.58166103e-02 -1.34048099e-02\n  1.63496044e-02 -5.65640349e-03 -7.18476474e-02 -1.61897056e-02\n -8.81039798e-02  5.42321838e-02 -6.33197427e-02 -5.32994419e-02\n -4.12804186e-02  9.52061359e-03 -3.98946330e-02  2.59701535e-02\n  7.66979009e-02 -9.01426841e-03 -1.89079773e-02  9.33406502e-03\n -4.49847318e-02  8.98628607e-02 -1.99473165e-02 -4.04009782e-02\n  1.47106461e-02  2.06035655e-03  8.04288611e-02  4.70101088e-02\n -2.66896971e-02  1.46440221e-02 -3.08303977e-03 -6.65177032e-02\n  1.47506213e-02  5.49517274e-02 -3.50710340e-02  3.91209585e-04\n -4.06408273e-02  4.58375216e-02  3.32322046e-02 -3.29603761e-01\n -4.32258472e-02 -3.08970222e-03  4.42651883e-02 -4.97816801e-02\n -3.16598713e-02  1.50704179e-02 -1.44441491e-02 -1.00802574e-02\n  5.10608666e-02  1.74555683e-03  4.26928550e-02 -2.20526457e-02\n -1.70291718e-02 -5.22667682e-03  5.50050251e-02 -5.28663862e-03\n  2.00539157e-02 -5.07410690e-02  3.86420973e-02 -9.35938209e-02\n  2.22391933e-02 -2.60634273e-02 -5.63908108e-02  4.59441207e-02\n  1.83883086e-02  1.61497310e-01  2.03204136e-02 -3.50976847e-02\n -2.48908401e-02 -1.57399918e-04 -1.98140685e-02 -4.62106168e-02\n -4.83958945e-02  2.25723144e-02  6.75570453e-03 -5.09342831e-03\n  8.33470095e-03 -4.12537679e-02 -3.07004787e-02 -9.39669162e-02\n  8.11483990e-03  7.09948614e-02 -2.65697725e-02  1.69758722e-02\n  3.97613868e-02 -3.81091014e-02  7.66845746e-03  3.68032642e-02\n  5.20735569e-02  2.21725684e-02 -3.92017402e-02  3.77360061e-02\n  6.17207550e-02  3.78426053e-02 -5.37258387e-02 -6.31598383e-02\n -5.03679737e-03 -2.73692645e-02  4.28527519e-02 -4.40786406e-02\n  5.81496917e-02  1.99339911e-02 -6.03882708e-02  8.41065198e-02\n -2.17328481e-02 -3.57905775e-02 -6.64244313e-03  3.09936274e-02\n  7.54853385e-03 -1.93476975e-02  9.44999158e-02  4.15402558e-03\n -2.10799295e-02  7.03019649e-02  1.92943979e-02 -3.64768063e-03\n -5.83095923e-02 -3.25926095e-02  1.87880534e-03  2.37315781e-02\n  3.27258594e-02  5.67555777e-04  2.04936359e-02 -3.45113911e-02\n -1.52436411e-02  6.36928380e-02  1.44741300e-03  3.89352441e-02\n -6.17207550e-02 -3.07004787e-02 -1.80418622e-02  4.34390455e-03\n -3.67233157e-02  3.41382921e-02 -3.56106902e-03 -2.68629193e-01\n -4.69568111e-02 -3.37918475e-02  5.04212752e-02  5.58977900e-03\n  7.45525956e-03  3.78159545e-02  4.22664583e-02 -7.66445994e-02\n -2.63698995e-02 -1.36713069e-02  1.99706363e-03  3.54974307e-02\n -1.56700369e-02 -1.34830934e-03  2.56103836e-02  1.21755921e-03\n -6.63045049e-02  7.66845746e-03  4.05342281e-02 -1.37645816e-02\n  3.41649428e-02  1.51050627e-01 -2.24257410e-02 -1.97607689e-02\n  3.77093558e-03  3.70431133e-02  4.99948785e-02  5.00015402e-03\n  3.66167165e-02 -5.30329486e-03 -1.94009971e-02  1.27918664e-02\n  1.62230188e-03  5.93622541e-03 -4.05608751e-02 -4.18400625e-03\n  3.60304229e-02  2.48242151e-02 -1.04866652e-02 -3.11268754e-02\n -3.54441302e-03 -5.86826876e-02 -2.71027666e-02  2.67563201e-02\n  3.46446373e-02 -6.25735447e-02 -4.67969105e-02 -1.15793040e-02\n  1.95342470e-02 -1.54151989e-03 -4.66103628e-02 -1.50570925e-02\n -4.75964025e-02  2.18127966e-02  2.87017506e-02 -6.89161792e-02\n  6.82232901e-03  2.48641912e-02 -3.22128506e-03 -1.77220646e-02\n  1.58032849e-02 -1.52169913e-02  1.43908495e-02  1.85881816e-02]"
+        "case_vertex": "{'id': 'INV-HHG-011', 'hhg_case': 'HHG-011', 'opened_at': '2016-12-29 06:27:44', 'case_status': 'closed_fraud', 'verdict': 'fraud', 'pattern': 'card_not_present_new_device', 'probability': 0.9, 'exposure': 131.3, 'sar_filed': True, 'summary': 'A customer reported a $131.30 online purchase they did not make on card C11923-K2. The investigation found the same amount had been charged on three earlier dates and that the device profile used for the transaction was shared with three other cards, a rare pattern that points to coordinated fraud. An analyst confirmed the shared device profile links the cards and agreed it is a coordinated scheme. The case was closed as fraud, the card was blocked, a case was created, the connected cards are being monitored, and a report was filed. The requested analyst information was provided and incorporated into the decision.', 'final_actions': 'BLOCK_CARD|CREATE_CASE|MONITOR_CONNECTED_CARDS|FILE_REPORT', 'timeline': '[{\"at\": \"2026-09-24T15:09:04\", \"stage\": \"opened\", \"status\": \"open\", \"text\": \"Investigation INV-HHG-011 opened from a customer report on payment 3583368\"}, {\"at\": \"2026-09-24T15:09:05\", \"stage\": \"evidence\", \"status\": \"investigating\", \"text\": \"3 findings from the graph added to the case\"}, {\"at\": \"2026-09-24T15:09:05\", \"stage\": \"memory\", \"status\": \"investigating\", \"text\": \"Memory recalled: 11 closed case(s) on the card, 0 confirmed fraud on the fingerprint, 0 earlier Chakravyuh investigation(s)\"}, {\"at\": \"2026-09-24T15:09:06\", \"stage\": \"assessed\", \"status\": \"investigating\", \"text\": \"Fraud probability 0.85; leading hypothesis card not present new device\"}, {\"at\": \"2026-09-24T15:09:06\", \"stage\": \"initial_recommendation\", \"status\": \"awaiting_evidence\", \"text\": \"Initial recommendation: BLOCK_CARD, CREATE_CASE\", \"executed\": [\"CREATE_CASE\"], \"queued\": [\"BLOCK_CARD\"]}, {\"at\": \"2026-09-24T15:09:07\", \"stage\": \"evidence_requested\", \"status\": \"awaiting_evidence\", \"text\": \"Requested analyst info through a policy-approved channel\"}, {\"at\": \"2026-09-24T15:09:07\", \"stage\": \"evidence_received\", \"status\": \"investigating\", \"text\": \"Response (assumed): Analyst confirms the shared device profile links 3 other cards with the same activity in the window and agrees it is one coordinated scheme\"}, {\"at\": \"2026-09-24T15:09:07\", \"stage\": \"final_recommendation\", \"status\": \"decided\", \"text\": \"Final recommendation (fraud, probability 0.90): BLOCK_CARD, CREATE_CASE, MONITOR_CONNECTED_CARDS, FILE_REPORT\", \"executed\": [\"MONITOR_CONNECTED_CARDS\"], \"queued\": [\"BLOCK_CARD\", \"FILE_REPORT\"]}, {\"at\": \"2026-09-24T15:09:08\", \"stage\": \"closed\", \"status\": \"closed_fraud\", \"text\": \"Case closed as fraud, suspicious activity report prepared\"}]'}",
+        "edges": "{'card_id': 'C11923-K2', 'txn_ids': ['3583368'], 'connected_cards': ['C03938-K1', 'C05595-K1', 'C05678-K1'], 'device_ids': ['Da2a1154525'], 'similar_cases': ['CC-3039', 'CC-1056', 'CC-2198', 'CC-4936'], 'pattern': 'card_not_present_new_device'}",
+        "embedding": "[-6.79574499e-04  3.88209010e-04 -3.32340300e-02  2.14925855e-02\n  2.95740124e-02 -4.96640392e-02  6.99945018e-02  2.91198492e-02\n  1.69376004e-02 -3.20318341e-02  3.91114317e-02  1.69910323e-02\n -2.32023764e-02  1.33911241e-03  1.50541607e-02 -2.44947360e-03\n  1.44931367e-02 -1.07075557e-01  5.47666885e-02  1.77791379e-02\n  1.02186631e-02 -4.68856283e-02 -2.90129874e-02 -1.17948754e-02\n  2.50724573e-02  3.86839844e-02 -1.72715448e-02 -8.89624804e-02\n -2.06644069e-02 -1.49606571e-01  2.01968867e-02  4.68589142e-02\n  1.30304648e-02  3.67871858e-02  2.84786783e-02 -6.58268929e-02\n -4.93434519e-02  9.47063044e-03  2.65150927e-02 -4.95037436e-02\n -5.58887385e-02  6.23538792e-02  6.41170982e-03  1.03455614e-02\n  1.73516907e-02  1.53029489e-03 -5.25960606e-03  1.52194628e-03\n  4.42407988e-02 -6.65882789e-03  2.33493112e-02 -3.11502255e-02\n  2.93068588e-02  2.83718165e-02 -1.12004559e-02  7.26660490e-02\n  1.83268040e-02  6.94067627e-02  8.78270715e-03  9.23019089e-03\n  3.37950550e-02  2.95472965e-02 -7.41086826e-02 -3.28332968e-02\n -3.35546173e-02  1.91149097e-02  1.99564472e-02 -1.44263478e-02\n  7.11699799e-02  2.43644975e-02  1.83000900e-02 -4.43476625e-02\n -4.25310098e-02 -4.52827029e-02 -4.10416210e-03  1.53079573e-02\n  3.58788595e-02  4.24508639e-02 -4.09013666e-02  6.98876381e-02\n -7.45895579e-02 -3.28934082e-04  1.81932282e-02  2.96583341e-04\n -2.90931351e-02  2.48988066e-02  4.46415320e-02 -1.22891110e-03\n  1.20486720e-02  1.54415350e-02  8.76267031e-02  1.82199422e-02\n  1.20687084e-02 -7.40018189e-02 -8.90159085e-02 -2.09549372e-03\n  6.01765700e-03  1.09333014e-02 -6.80175573e-02  4.05433804e-01\n  2.21337583e-02  4.58971560e-02  4.84618433e-02  8.62909295e-03\n -5.19281719e-03 -6.27813265e-02 -1.10468417e-02 -1.44931367e-02\n  1.91416256e-02 -2.85588261e-02 -2.52327509e-02 -4.02601957e-02\n  3.93785872e-02 -3.84702608e-02  3.66536081e-02  1.00236401e-01\n -2.02236027e-02 -4.15425375e-03  4.80076782e-02  3.90847176e-02\n -5.37515022e-02  8.89090449e-02  9.34373122e-03  1.03923138e-02\n -3.87641303e-02  3.96724558e-03  1.56686157e-02  1.10708863e-01\n -4.21569943e-02  4.48285379e-02 -2.06376910e-02 -2.26814244e-02\n -4.46415320e-02  1.40790464e-02  3.42759341e-02 -1.04457447e-02\n -2.93335728e-02  3.81229594e-02  7.83831552e-02  5.93083166e-03\n -2.07979847e-02  2.51292274e-03 -6.70224056e-03 -3.17646787e-02\n -2.20803265e-02  1.02213345e-01  4.56166454e-03  5.07059395e-02\n  3.02151833e-02 -5.70708979e-03  1.46400714e-02  2.44045705e-02\n -3.04289069e-02 -6.57200292e-02 -3.54781300e-02  9.62424371e-03\n  6.48116991e-02  2.61677913e-02 -6.30484819e-02  2.34561730e-02\n  3.84969749e-02 -9.70439054e-03 -1.04524232e-02  1.33042976e-01\n  4.71795015e-02 -1.27379313e-01  5.44461049e-02  2.69826129e-02\n -2.75970679e-02 -1.13607487e-02 -2.81848088e-02 -1.08331181e-02\n  9.65763815e-03 -7.97706889e-04 -8.68252385e-03 -6.73229545e-02\n -4.97441851e-02  6.77504018e-02 -4.64581810e-02 -2.99747437e-02\n  7.00028497e-04  2.33359523e-02 -4.64047529e-02 -2.21604723e-02\n  4.00397927e-03 -5.93083166e-03 -2.54731905e-02 -6.97273482e-03\n  2.30687987e-02 -1.10668791e-02 -8.79472867e-02 -2.10117083e-02\n -9.35041085e-02  5.19348532e-02 -7.36278072e-02 -3.34744714e-02\n -2.59006377e-02  1.72181129e-02 -1.57754775e-02  1.16145452e-02\n  7.23988935e-02  7.82095082e-03 -4.13087755e-03  1.13807851e-02\n -4.28248793e-02  9.40384120e-02 -1.62029248e-02 -3.42225023e-02\n -1.60159171e-02 -6.11533527e-04  8.92296284e-02  2.71963365e-02\n -3.09097860e-02  1.39321117e-02 -1.42126242e-02 -4.14089598e-02\n  9.45059303e-03  5.53009994e-02 -1.49472989e-02 -1.10735577e-02\n -4.38934974e-02  3.45163718e-02  3.90579998e-02 -3.23363900e-01\n -3.14975269e-02 -2.22272612e-02  4.53094169e-02 -5.38316481e-02\n -1.00249760e-02  1.58823393e-02 -2.07178388e-02 -3.58254313e-02\n  7.02616572e-02 -6.29149051e-03  4.99311909e-02 -3.69741954e-02\n -2.83451024e-02 -9.51738190e-03  4.41873670e-02 -2.25745626e-02\n -1.08598340e-02 -6.50788546e-02  2.71161906e-02 -5.76519594e-02\n  1.08264396e-02 -1.68975275e-02 -6.00563511e-02  4.76069488e-02\n  5.94151802e-02  1.55377105e-01  9.40384157e-03 -4.64314669e-02\n -2.77306456e-02  2.06644069e-02 -1.73249748e-02 -2.28283592e-02\n -3.98594625e-02  4.48151818e-03 -1.42126242e-02 -2.01868685e-03\n -8.10814183e-03 -4.49888334e-02 -1.82733741e-02 -1.12846099e-01\n -5.61024621e-03  6.01097830e-02 -3.72413509e-02  7.18645845e-03\n  4.93167378e-02 -2.82649547e-02 -2.48119817e-03  2.14792285e-02\n  3.20051201e-02  2.23875549e-02 -4.91564423e-02  1.11870980e-02\n  6.25141710e-02  4.79008183e-02 -4.31454666e-02 -8.31919387e-02\n  5.31303696e-03 -1.91950575e-02  2.44446453e-02 -2.93068588e-02\n  4.44812402e-02  1.16412612e-02 -5.24157286e-02  8.02532360e-02\n -1.56552587e-02 -3.81229594e-02 -1.02787726e-02  3.61994468e-02\n  3.32273520e-03 -7.44693400e-03  9.81525928e-02 -1.61094218e-02\n -2.90129874e-02  6.10715374e-02  1.78058539e-02  2.87992638e-02\n -3.90045680e-02 -1.11603830e-02  1.27315859e-03  3.47568132e-02\n  2.34161001e-02  2.16929521e-02  2.07846276e-02 -2.78375074e-02\n  1.10134482e-02  4.61910293e-02 -5.99094154e-03  3.10166478e-02\n -6.32087737e-02 -5.41255176e-02 -1.70177463e-02  1.29035665e-02\n -2.18799599e-02  2.37233266e-02 -1.13540702e-03 -2.60315418e-01\n -3.21386978e-02 -4.78473864e-02  5.98426275e-02  2.09315624e-02\n  2.56468402e-03  9.45059303e-03  3.36614773e-02 -9.57482010e-02\n -2.19601076e-02 -1.30905746e-03  3.56651377e-03  2.49121655e-02\n -1.50274457e-02  5.99428080e-03  3.21654119e-02  8.97639431e-03\n -5.59956022e-02  5.65198949e-04  3.46766636e-02  2.78107915e-02\n  3.31271701e-02  1.64353505e-01 -2.96274442e-02 -1.15143629e-02\n -2.89061256e-02  4.66986224e-02  4.55498584e-02  5.60356723e-03\n  4.62711751e-02 -1.10735577e-02 -1.80195775e-02  4.02067639e-02\n -1.14208581e-02  2.37266673e-03 -2.44179294e-02  6.59537874e-03\n  4.03670594e-02  2.75970679e-02  4.93234163e-03 -6.47048429e-02\n -1.66570880e-02 -3.52911204e-02 -2.02503167e-02  4.28248793e-02\n  4.36263420e-02 -5.94686121e-02 -5.40186577e-02  1.68841705e-02\n  2.29252037e-03  6.71559852e-03 -5.82396984e-02 -2.41507739e-02\n -3.74817885e-02  1.36382412e-02  3.66001800e-02 -5.42323813e-02\n -6.53860858e-03  1.49272627e-03 -7.07124767e-04 -1.65368691e-02\n  1.44430448e-03 -2.46717259e-02  3.06426305e-02  2.01835297e-02]"
       },
       "result": "written=INV-HHG-011, edges=11",
-      "ms": 747
+      "ms": 728
     }
   ]
 }

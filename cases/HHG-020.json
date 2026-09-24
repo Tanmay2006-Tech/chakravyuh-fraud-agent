@@ -46,7 +46,7 @@
       "CC-0487",
       "CC-1447"
     ],
-    "summary": "The transaction of $125.08 was reviewed and allowed, and the case was closed as legitimate. Evidence showed the device profile was new but only 8% of similar alerts were fraud and past alerts on that device were mostly cleared, indicating a genuine customer. The model score of 0.52 was a weak input and did not constitute an adverse signal. Because the fraud probability was low (0.05) and the evidence supported legitimacy, the card was not blocked and the case was closed without fraud.",
+    "summary": "The transaction of $125.08 was reviewed after a real-time model gave it a score of 0.52. Evidence showed the device profile was new but only 8% of past alerts with that signal were fraud, and past alerts on the same device were mostly cleared, indicating a genuine customer. The model score was weak and the overall fraud probability was 0.05, well below the 0.15 threshold. The case was closed as legitimate and the transaction was allowed.",
     "written_to_graph": true,
     "graph_case_id": "INV-HHG-020"
   },
@@ -88,6 +88,6 @@
   },
   "stop_reason": "Probability at or below 0.15 on two or more independent pieces of legitimate-behaviour evidence (section 6); verification would not change the decision.",
   "tool_calls": 12,
-  "tokens": 1454,
-  "latency_s": 9.62
+  "tokens": 1412,
+  "latency_s": 3.97
 }
