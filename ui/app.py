@@ -189,7 +189,7 @@ def navlinks(active):
 
 def header(active):
     st.markdown(f'<div class="brandbar"><div class="brand">{SPIRAL}<div><div class="name">Chakravyuh</div>'
-                f'<div class="tag">An AI fraud investigator on TigerGraph, built for Hacker House Goa 2026</div></div></div>'
+                f'<div class="tag">An AI fraud investigator on TigerGraph, built as an internship project</div></div></div>'
                 f'<div class="nav">{navlinks(active)}</div></div>', unsafe_allow_html=True)
 
 def hero_spiral(size=340):
@@ -263,7 +263,7 @@ if view == "overview":
     st.markdown(
         f'<div class="hero"><div class="toprow"><div class="mark">{SPIRAL} Chakravyuh</div><div class="nav">{navlinks("overview")}</div></div>'
         f'<div class="wrap"><div>'
-        f'<div class="eyebrow">HACKER HOUSE GOA 2026 · TIGERGRAPH AGENTIC FRAUD INVESTIGATION</div>'
+        f'<div class="eyebrow">INTERNSHIP PROJECT · TIGERGRAPH AGENTIC FRAUD INVESTIGATION</div>'
         f'<h1 class="title">Chakravyuh</h1>'
         f'<div class="lede">An AI fraud investigator that walks the graph ring by ring, traps coordinated fraud, and knows when <b>not</b> to block a genuine customer.</div>'
         f'<div class="chips"><span>TigerGraph Savanna</span><span>MCP</span><span>GraphRAG · TigerVector</span><span>LangGraph agent</span><span>Policy-bound actions</span></div>'
@@ -322,7 +322,7 @@ if view == "overview":
                      f'<div class="d">{esc(line)}</div><div class="d">{esc(extra)}</div>'
                      f'<div class="mini" title="chance of fraud {r.p:.0%}"><i style="left:{r.p*100:.0f}%"></i></div></a>')
     st.markdown(f'<div class="grid">{"".join(tiles)}</div>', unsafe_allow_html=True)
-    st.markdown(f'<div class="foot"><span>Chakravyuh · built for Hacker House Goa 2026 on TigerGraph Savanna, MCP and GraphRAG</span>'
+    st.markdown(f'<div class="foot"><span>Chakravyuh · internship project built on TigerGraph Savanna, MCP and GraphRAG</span>'
                 f'<a href="{REPO}" target="_blank">Source code on GitHub</a></div>', unsafe_allow_html=True)
     st.stop()
 

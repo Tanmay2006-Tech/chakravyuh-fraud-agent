@@ -1,5 +1,5 @@
 .env
-data/HHGOA_IEEE/
+data/fraud_dataset/
 data/load/
 data/local/*.parquet
 data/local/*.npy
