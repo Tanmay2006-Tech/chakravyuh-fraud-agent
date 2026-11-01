@@ -1,4 +1,4 @@
-# How Chakravyuh meets the judging criteria
+# How Chakravyuh works
 
 | # | What success looks like | Where it happens | Where to see it |
 |---|---|---|---|

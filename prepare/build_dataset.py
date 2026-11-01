@@ -1,5 +1,5 @@
 """
-Step 1 of the pipeline: turn the raw HHGOA_IEEE files into
+Step 1 of the pipeline: turn the raw fraud dataset files into
   (a) CSVs shaped for the TigerGraph loading job  -> data/load/
   (b) a slim parquet used by the offline backend -> data/local/
 
@@ -70,6 +70,6 @@ def main(raw, out):
 
 if __name__ == "__main__":
     ap = argparse.ArgumentParser()
-    ap.add_argument("--raw", default="data/HHGOA_IEEE")
+    ap.add_argument("--raw", default="data/fraud_dataset")
     ap.add_argument("--out", default="data")
     a = ap.parse_args(); main(a.raw, a.out)

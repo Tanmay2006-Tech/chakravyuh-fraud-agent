@@ -4,7 +4,7 @@
 
 It takes a fraud alert — a model score, a customer complaint or an analyst request — and runs the whole investigation a fraud analyst would: it opens the case, walks the graph, recalls the bank's past cases, decides what kind of fraud it is and how far it goes, asks for more evidence when the signal is weak, recommends the next best actions with the approval each one needs, writes the suspicious activity report when policy requires one, and writes the finished case back into the graph so the next investigation can find it.
 
-Built for **Hacker House Goa 2026** — the TigerGraph *Agentic Fraud Investigation & Next-Best Action* challenge (HHGOA 2026).
+Built as an internship project: a TigerGraph-powered *Agentic Fraud Investigation & Next-Best Action* system.
 
 **Live console:** `<Streamlit URL>` · **Demo video:** `<video link>` · **Blog:** `<blog link>` · **Answer files:** [`cases/`](cases/)
 
@@ -51,11 +51,9 @@ flowchart LR
 * **The LLM does language, not the verdict.** When other cards are linked it picks follow-up graph calls, and it writes summaries and SAR narratives from retrieved evidence and policy passages. Every ID it writes is checked against the evidence; if it invents one, the deterministic writer is used.
 * **LLM failover.** Groq `openai/gpt-oss-120b` is primary, then an optional second Groq model (`GROQ_BACKUP_MODEL`, e.g. `openai/gpt-oss-20b`: Groq's per-minute token budget is per model), then Gemini `gemini-3.6-flash`. A 429/503 is retried on the same provider with backoff (honouring Retry-After), then the request fails over; a hard error (401/403/404) disables a provider for the run, and four failures in a row cool it down for 90 s. If all are down, the deterministic writer is used. Each trace's `writer` field records the model that actually wrote that case.
 
-## How it meets the judging criteria
+## Project capabilities
 
-The official challenge brief is in [`docs/challenge_brief.md`](docs/challenge_brief.md).
-
-See [`docs/judging_map.md`](docs/judging_map.md): each of the 11 "what success looks like" points, the code that implements it, and where to see it in the console.
+See [`docs/judging_map.md`](docs/judging_map.md): the core capabilities, the code that implements them, and where to see them in the console.
 
 ## Quick start
 
@@ -65,7 +63,7 @@ python -m venv .venv && source .venv/bin/activate      # Windows: .venv\Scripts\
 pip install -r requirements.txt
 cp .env.example .env                                     # fill in TG_* and an LLM key
 
-# 1. put the dataset folder at data/HHGOA_IEEE/, then derive entities + loading files (~2 min)
+# 1. put the raw dataset folder at data/fraud_dataset/, then derive entities + loading files (~2 min)
 python prepare/build_dataset.py
 
 # 2. create schema, vector attributes, load data, embed, install queries — all through TigerGraph MCP
@@ -98,7 +96,7 @@ python monitor.py --backend tigergraph
 
 1. Push the repo (after the TigerGraph run, so `cases/` and `traces/` hold the final results).
 2. Go to share.streamlit.io, sign in with GitHub, choose **Create app → Deploy a public app from GitHub**.
-3. Repository `Tanmay2006-Tech/chakravyuh-fraud-agent`, branch `main`, main file path `ui/app.py`, and pick a custom URL such as `chakravyuh-hhgoa`.
+3. Repository `Tanmay2006-Tech/chakravyuh-fraud-agent`, branch `main`, and main file path `ui/app.py`.
 4. Deploy. No secrets are needed: the live app shows the recorded investigations. (It installs `ui/requirements.txt`, not the full agent stack.)
 
 No workspace handy? `python run_cases.py --backend local --embedder hashed` runs the same agent against an offline mirror of the graph tools (same contracts as the GSQL queries).
@@ -125,4 +123,4 @@ No workspace handy? `python run_cases.py --backend local --embedder hashed` runs
 | `ui/app.py` | Analyst console: the 20 cases, each case drawn as investigation rings, plain-language verdict, actions with an approval queue, the plan for every customer answer, evidence, step-by-step trace, SAR |
 | `scripts/doctor.py`, `tests/` | Live query check through MCP; offline end-to-end test of the TigerGraph code path |
 | `scripts/calibrate.py`, `scripts/backtest.py` | Case-memory calibration and no-look-ahead backtest (`docs/backtest*.json`, one row per replayed case in `docs/backtest_rows.csv`) |
-| `docs/` | Blog post, demo script, social post |
+| `docs/` | Project write-up, demo script, social post |

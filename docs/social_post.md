@@ -1,6 +1,6 @@
 # LinkedIn / X post
 
-Built **Chakravyuh**, an agentic fraud investigator, for Hacker House Goa 2026 (TigerGraph Agentic Fraud Investigation challenge) 🌀
+Built **Chakravyuh**, an agentic fraud investigator as an internship project using TigerGraph 🌀
 
 Give it an alert and it runs the investigation an analyst would: walks the transaction graph through TigerGraph MCP, recalls the bank's past cases, works out what kind of fraud it is and how far it goes, asks for more evidence when the signal is weak, recommends actions with the right approval level, files the SAR when policy requires it — and writes the case back into the graph so the next investigation remembers it.
 
@@ -13,4 +13,4 @@ The agent also found a scheme nobody asked about: four purchases just under $500
 
 Blog: <link> · Demo: <link> · Code: github.com/Tanmay2006-Tech/chakravyuh-fraud-agent
 
-@TigerGraphDB #TigerGraph #GraphRAG #AgenticAI #FraudDetection #HackerHouseGoa2026 #HHGOA
+@TigerGraphDB #TigerGraph #GraphRAG #AgenticAI #FraudDetection #InternshipProject

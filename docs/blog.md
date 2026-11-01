@@ -1,8 +1,8 @@
 # Building Chakravyuh: an agentic fraud investigator on TigerGraph
 
-*Tanmay Tripathi · Hacker House Goa 2026 · TigerGraph Agentic Fraud Investigation challenge*
+*Tanmay Tripathi · Internship project · TigerGraph Agentic Fraud Investigation*
 
-Fraud analysts rarely lose to a lack of data. They lose to the time it takes to join it: pull the card's history, trace the device, check whether the same number turned up in an old case, read the policy, decide, document. By the time the case is written up, the money has moved. The Hacker House Goa 2026 TigerGraph challenge asked for an agent that does that whole loop — and knows when it does not yet know enough to act. This is how I built **Chakravyuh**, named after the spiral formation of the Mahabharata that surrounds whoever enters it ring by ring — which is how it investigates: from the flagged transaction outward to the card, the real cardholder, the device, the other cards that device touched, and the bank's past cases.
+Fraud analysts rarely lose to a lack of data. They lose to the time it takes to join it: pull the card's history, trace the device, check whether the same number turned up in an old case, read the policy, decide, document. By the time the case is written up, the money has moved. This internship project explores an agent that does that whole loop — and knows when it does not yet know enough to act. This is how I built **Chakravyuh**, named after the spiral formation of the Mahabharata that surrounds whoever enters it ring by ring — which is how it investigates: from the flagged transaction outward to the card, the real cardholder, the device, the other cards that device touched, and the bank's past cases.
 
 ## What it does
 
